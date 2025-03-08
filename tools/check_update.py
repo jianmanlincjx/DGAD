@@ -34,7 +34,7 @@ def compare_models(model_path_1, model_path_2):
     print(f"Total number of different keys: {diff_count}")
 
 # Example usage
-model_path_1 = '/data1/JM/code/BrushNet-main/exp/insert_brushnet_ipadapter/checkpoint-10/brushnet/diffusion_pytorch_model.bin'
-model_path_2 = '/data1/JM/code/BrushNet-main/exp/insert_brushnet_ipadapter/checkpoint-20/brushnet/diffusion_pytorch_model.bin'
+model_path_1 = '/data1/JM/code/BrushNet-main/exp/brushnet_adapter/checkpoint-10/brushnet/diffusion_pytorch_model.bin'
+model_path_2 = '/data1/JM/code/BrushNet-main/exp/brushnet_adapter/checkpoint-20/brushnet/diffusion_pytorch_model.bin'
 
 compare_models(model_path_1, model_path_2)

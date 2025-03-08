@@ -52,7 +52,28 @@ from .unet_2d_blocks import (
 
 logger = logging.get_logger(__name__)  # pylint: disable=invalid-name
 
+class CrossAttentionFusion(nn.Module):
+    def __init__(self, channels, num_heads=8, dim_head=64):
+        super().__init__()
+        inner_dim = num_heads * dim_head
+        self.to_q = nn.Conv2d(channels, inner_dim, kernel_size=1, bias=False)
+        self.to_k = nn.Conv2d(channels, inner_dim, kernel_size=1, bias=False)
+        self.to_v = nn.Conv2d(channels, inner_dim, kernel_size=1, bias=False)
+        self.mha = nn.MultiheadAttention(embed_dim=inner_dim, num_heads=num_heads, batch_first=True)
+        self.to_out = nn.Conv2d(inner_dim, channels, kernel_size=1)
 
+    def forward(self, feat1, feat2):
+        B, C, H, W = feat1.shape
+        q = self.to_q(feat1)
+        k = self.to_k(feat2)
+        v = self.to_v(feat2)
+        q = q.flatten(2).transpose(1, 2)
+        k = k.flatten(2).transpose(1, 2)
+        v = v.flatten(2).transpose(1, 2)
+        out, _ = self.mha(q, k, v)
+        out = out.transpose(1, 2).view(B, -1, H, W)
+        return self.to_out(out)
+    
 @dataclass
 class UNet2DConditionOutput(BaseOutput):
     """
@@ -172,13 +193,13 @@ class UNet2DConditionModel(ModelMixin, ConfigMixin, UNet2DConditionLoadersMixin,
         flip_sin_to_cos: bool = True,
         freq_shift: int = 0,
         down_block_types: Tuple[str] = (
-            "CrossAttnDownBlock2D",
-            "CrossAttnDownBlock2D",
-            "CrossAttnDownBlock2D",
-            "DownBlock2D",
+            "CrossAttnDownBlock2D_me",
+            "CrossAttnDownBlock2D_me",
+            "CrossAttnDownBlock2D_me",
+            "DownBlock2D_me",
         ),
         mid_block_type: Optional[str] = "UNetMidBlock2DCrossAttn",
-        up_block_types: Tuple[str] = ("UpBlock2D", "CrossAttnUpBlock2D", "CrossAttnUpBlock2D", "CrossAttnUpBlock2D"),
+        up_block_types: Tuple[str] = ("UpBlock2D_me", "CrossAttnUpBlock2D_me", "CrossAttnUpBlock2D_me", "CrossAttnUpBlock2D_me_last"),
         only_cross_attention: Union[bool, Tuple[bool]] = False,
         block_out_channels: Tuple[int] = (320, 640, 1280, 1280),
         layers_per_block: Union[int, Tuple[int]] = 2,
@@ -478,6 +499,8 @@ class UNet2DConditionModel(ModelMixin, ConfigMixin, UNet2DConditionLoadersMixin,
         self.conv_out = nn.Conv2d(
             block_out_channels[0], out_channels, kernel_size=conv_out_kernel, padding=conv_out_padding
         )
+        self.mid_block_me = CrossAttentionFusion(channels=1280, num_heads=8, dim_head=40)
+        self.first_me = CrossAttentionFusion(channels=320, num_heads=8, dim_head=40)
 
         self._set_pos_net_if_use_gligen(attention_type=attention_type, cross_attention_dim=cross_attention_dim)
 
@@ -1217,9 +1240,10 @@ class UNet2DConditionModel(ModelMixin, ConfigMixin, UNet2DConditionLoadersMixin,
         down_block_res_samples = (sample,)
 
         if is_brushnet:
-            sample = sample + down_block_add_samples.pop(0)
+            sample_first = self.first_me(sample, down_block_add_samples.pop(0))
+            sample = sample + sample_first
 
-        for downsample_block in self.down_blocks:
+        for j, downsample_block in enumerate(self.down_blocks):
             if hasattr(downsample_block, "has_cross_attention") and downsample_block.has_cross_attention:
                 # For t2i-adapter CrossAttnDownBlock2D
                 additional_residuals = {}
@@ -1236,7 +1260,7 @@ class UNet2DConditionModel(ModelMixin, ConfigMixin, UNet2DConditionLoadersMixin,
                     encoder_hidden_states=encoder_hidden_states,
                     attention_mask=attention_mask,
                     cross_attention_kwargs=cross_attention_kwargs,
-                    encoder_attention_mask=encoder_attention_mask,
+                    encoder_attention_mask=encoder_attention_mask, idx=j,
                     **additional_residuals,
                 )
             else:
@@ -1245,7 +1269,7 @@ class UNet2DConditionModel(ModelMixin, ConfigMixin, UNet2DConditionLoadersMixin,
                     additional_residuals["down_block_add_samples"] = [down_block_add_samples.pop(0) 
                                                         for _ in range(len(downsample_block.resnets)+(downsample_block.downsamplers !=None))]
 
-                sample, res_samples = downsample_block(hidden_states=sample, temb=emb, scale=lora_scale, **additional_residuals)
+                sample, res_samples = downsample_block(hidden_states=sample, temb=emb, scale=lora_scale, idx=j, **additional_residuals)
                 if is_adapter and len(down_intrablock_additional_residuals) > 0:
                     sample += down_intrablock_additional_residuals.pop(0)
 
@@ -1288,7 +1312,8 @@ class UNet2DConditionModel(ModelMixin, ConfigMixin, UNet2DConditionLoadersMixin,
             sample = sample + mid_block_additional_residual
 
         if is_brushnet:
-            sample = sample + mid_block_add_sample
+            output_sample_mid = self.mid_block_me(sample, mid_block_add_sample)
+            sample = sample + output_sample_mid
 
         # 5. up
         for i, upsample_block in enumerate(self.up_blocks):
@@ -1315,7 +1340,7 @@ class UNet2DConditionModel(ModelMixin, ConfigMixin, UNet2DConditionLoadersMixin,
                     encoder_hidden_states=encoder_hidden_states,
                     cross_attention_kwargs=cross_attention_kwargs,
                     upsample_size=upsample_size,
-                    attention_mask=attention_mask,
+                    attention_mask=attention_mask, idx=i,
                     encoder_attention_mask=encoder_attention_mask,
                     **additional_residuals,
                 )
@@ -1330,7 +1355,7 @@ class UNet2DConditionModel(ModelMixin, ConfigMixin, UNet2DConditionLoadersMixin,
                     temb=emb,
                     res_hidden_states_tuple=res_samples,
                     upsample_size=upsample_size,
-                    scale=lora_scale,
+                    scale=lora_scale, idx=i,
                     **additional_residuals,
                 )
 
