@@ -709,6 +709,7 @@ def retrieve_timesteps(
 #             raise TypeError(
 #                 f"mask must be passed and be one of PIL image, numpy array, torch tensor, list of PIL images, list of numpy arrays or list of torch tensors, but is {type(mask)}"
 #             )
+
 #         if image_is_pil:
 #             image_batch_size = 1
 #         else:
@@ -720,6 +721,7 @@ def retrieve_timesteps(
 #             prompt_batch_size = len(prompt)
 #         elif prompt_embeds is not None:
 #             prompt_batch_size = prompt_embeds.shape[0]
+
 #         if image_batch_size != 1 and image_batch_size != prompt_batch_size:
 #             raise ValueError(
 #                 f"If image batch size is not 1, image batch size must be same as prompt batch size. image batch size: {image_batch_size}, prompt batch size: {prompt_batch_size}"
@@ -830,10 +832,8 @@ def retrieve_timesteps(
 #     def __call__(
 #         self,
 #         prompt: Union[str, List[str]] = None,
-#         background_image: PipelineImageInput = None,
-#         background_mask: PipelineImageInput = None,
-#         object_image: PipelineImageInput = None,
-#         object_mask: PipelineImageInput = None,
+#         image: PipelineImageInput = None,
+#         mask: PipelineImageInput = None,
 #         height: Optional[int] = None,
 #         width: Optional[int] = None,
 #         num_inference_steps: int = 50,
@@ -1007,8 +1007,8 @@ def retrieve_timesteps(
 #         # 1. Check inputs. Raise error if not correct
 #         self.check_inputs(
 #             prompt,
-#             background_image,
-#             background_mask,
+#             image,
+#             mask,
 #             callback_steps,
 #             negative_prompt,
 #             prompt_embeds,
@@ -1074,8 +1074,8 @@ def retrieve_timesteps(
 
 #         # 4. Prepare image
 #         if isinstance(brushnet, BrushNetModel):
-#             background_image = self.prepare_image(
-#                 image=background_image,
+#             image = self.prepare_image(
+#                 image=image,
 #                 width=width,
 #                 height=height,
 #                 batch_size=batch_size * num_images_per_prompt,
@@ -1085,9 +1085,8 @@ def retrieve_timesteps(
 #                 do_classifier_free_guidance=self.do_classifier_free_guidance,
 #                 guess_mode=guess_mode,
 #             )
-
-#             object_image = self.prepare_image(
-#                 image=object_image,
+#             original_mask = self.prepare_image(
+#                 image=mask,
 #                 width=width,
 #                 height=height,
 #                 batch_size=batch_size * num_images_per_prompt,
@@ -1097,32 +1096,8 @@ def retrieve_timesteps(
 #                 do_classifier_free_guidance=self.do_classifier_free_guidance,
 #                 guess_mode=guess_mode,
 #             )
-            
-#             background_mask = self.prepare_image(
-#                 image=background_mask,
-#                 width=width,
-#                 height=height,
-#                 batch_size=batch_size * num_images_per_prompt,
-#                 num_images_per_prompt=num_images_per_prompt,
-#                 device=device,
-#                 dtype=brushnet.dtype,
-#                 do_classifier_free_guidance=self.do_classifier_free_guidance,
-#                 guess_mode=guess_mode,
-#             )
-#             object_mask = self.prepare_image(
-#                 image=object_mask,
-#                 width=width,
-#                 height=height,
-#                 batch_size=batch_size * num_images_per_prompt,
-#                 num_images_per_prompt=num_images_per_prompt,
-#                 device=device,
-#                 dtype=brushnet.dtype,
-#                 do_classifier_free_guidance=self.do_classifier_free_guidance,
-#                 guess_mode=guess_mode,
-#             )
-#             background_mask=(background_mask.sum(1)[:,None,:,:] < 0).to(background_image.dtype)
-#             object_mask=(object_mask.sum(1)[:,None,:,:] < 0).to(object_image.dtype)
-#             height, width = background_image.shape[-2:]
+#             original_mask=(original_mask.sum(1)[:,None,:,:] < 0).to(image.dtype)
+#             height, width = image.shape[-2:]
 #         else:
 #             assert False
 
@@ -1132,7 +1107,6 @@ def retrieve_timesteps(
 
 #         # 6. Prepare latent variables
 #         num_channels_latents = self.unet.config.in_channels
-
 #         latents, noise = self.prepare_latents(
 #             batch_size * num_images_per_prompt,
 #             num_channels_latents,
@@ -1145,24 +1119,15 @@ def retrieve_timesteps(
 #         )
 
 #         # 6.1 prepare condition latents
-#         conditioning_latents_background=self.vae.encode(background_image).latent_dist.sample() * self.vae.config.scaling_factor
-#         conditioning_latents_object=self.vae.encode(object_image).latent_dist.sample() * self.vae.config.scaling_factor
-#         background_mask = torch.nn.functional.interpolate(
-#                     background_mask, 
+#         conditioning_latents=self.vae.encode(image).latent_dist.sample() * self.vae.config.scaling_factor
+#         mask = torch.nn.functional.interpolate(
+#                     original_mask, 
 #                     size=(
-#                         conditioning_latents_background.shape[-2], 
-#                         conditioning_latents_background.shape[-1]
+#                         conditioning_latents.shape[-2], 
+#                         conditioning_latents.shape[-1]
 #                     )
 #                 )
-#         object_mask = torch.nn.functional.interpolate(
-#                     object_mask, 
-#                     size=(
-#                         conditioning_latents_object.shape[-2], 
-#                         conditioning_latents_object.shape[-1]
-#                     )
-#                 )
-#         conditioning_latents_background = torch.concat([conditioning_latents_background,background_mask],1)
-#         conditioning_latents_object = torch.concat([conditioning_latents_object,object_mask],1)
+#         conditioning_latents = torch.concat([conditioning_latents,mask],1)
 
 
 #         # 6.5 Optionally get Guidance Scale Embedding
@@ -1229,39 +1194,20 @@ def retrieve_timesteps(
 #                     control_model_input,
 #                     t,
 #                     encoder_hidden_states=brushnet_prompt_embeds,
-#                     brushnet_cond=conditioning_latents_background,
+#                     brushnet_cond=conditioning_latents,
 #                     conditioning_scale=cond_scale,
 #                     guess_mode=guess_mode,
 #                     return_dict=False,
 #                 )
-#                 down_block_res_samples_object, mid_block_res_sample_object, up_block_res_samples_object = self.brushnet(
-#                     control_model_input,
-#                     t,
-#                     encoder_hidden_states=brushnet_prompt_embeds,
-#                     brushnet_cond=conditioning_latents_object,
-#                     conditioning_scale=cond_scale,
-#                     guess_mode=guess_mode,
-#                     return_dict=False,
-#                 )
-    
+
 #                 if guess_mode and self.do_classifier_free_guidance:
-#                     # print('=======================================================')
 #                     # Infered BrushNet only for the conditional batch.
 #                     # To apply the output of BrushNet to both the unconditional and conditional batches,
 #                     # add 0 to the unconditional batch to keep it unchanged.
 #                     down_block_res_samples = [torch.cat([torch.zeros_like(d), d]) for d in down_block_res_samples]
 #                     mid_block_res_sample = torch.cat([torch.zeros_like(mid_block_res_sample), mid_block_res_sample])
 #                     up_block_res_samples = [torch.cat([torch.zeros_like(d), d]) for d in up_block_res_samples]
-                    
-#                     down_block_res_samples_object = [torch.cat([torch.zeros_like(d), d]) for d in down_block_res_samples_object]
-#                     mid_block_res_sample_object = torch.cat([torch.zeros_like(mid_block_res_sample_object), mid_block_res_sample_object])
-#                     up_block_res_samples_object = [torch.cat([torch.zeros_like(d), d]) for d in up_block_res_samples_object]
-                
-#                 # 维度扩展后的特征图叠加
-#                 down_block_res_samples = [d + o for d, o in zip(down_block_res_samples, down_block_res_samples_object)]
-#                 mid_block_res_sample = mid_block_res_sample + mid_block_res_sample_object
-#                 up_block_res_samples = [u + o for u, o in zip(up_block_res_samples, up_block_res_samples_object)]
-                
+
 #                 # predict the noise residual
 #                 noise_pred = self.unet(
 #                     latent_model_input,

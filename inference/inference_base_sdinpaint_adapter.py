@@ -19,7 +19,7 @@ transform_image = transforms.Compose([
 
 base_model_path = "pretrain_model/stable-diffusion-v1-5"
 brushnet_path = "pretrain_model/segmentation_mask_brushnet_ckpt"
-unet_path = '/data1/JM/code/BrushNet-main/exp/brushnet_adapter_small/checkpoint-170000'
+unet_path = '/data1/JM/code/BrushNet-main/exp/brushnet_adapter_small_bigobject/checkpoint-200000'
 
 brushnet = BrushNetModel.from_pretrained(brushnet_path, torch_dtype=torch.float16, is_inference=False).to('cuda')
 unet = UNet2DConditionModel.from_pretrained(unet_path, subfolder="unet", torch_dtype=torch.float16)
@@ -33,32 +33,32 @@ pipe.scheduler = UniPCMultistepScheduler.from_config(pipe.scheduler.config)
 pipe.enable_model_cpu_offload()
 generator = torch.Generator("cuda").manual_seed(1234)
 image_name_list = sorted(os.listdir('/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed'))
-output_folder = '/data1/JM/code/BrushNet-main/datasets/MSRA-10K_result_with_prompt_170000_exp'
+output_folder = '/data1/JM/code/BrushNet-main/datasets/MSRA-10K_result_brushnetadapter_200000_bigobject'
 os.makedirs(output_folder, exist_ok=True)
 # 遍历图像名称列表
-for name in image_name_list:
+for name in image_name_list[:100]:
     # 定义图像路径
-    source_image_path = f"/data1/JM/code/BrushNet-main/datasets/MSRA-10K_new/source_processed/{name}"
-    mask_image_path = f"/data1/JM/code/BrushNet-main/datasets/MSRA-10K_new/mask_processed/{name}"
-    object_image_path = f"/data1/JM/code/BrushNet-main/datasets/MSRA-10K_new/object_processed/{name}"
-    txt_path = f"/data1/JM/code/BrushNet-main/datasets/MSRA-10K_new/text/{name.replace('.png', '.txt')}"
-    groundtruth_image_path = f"/data1/JM/code/BrushNet-main/datasets/MSRA-10K_new/target_processed/{name}"
+    source_image_path = f"/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/{name}"
+    mask_image_path = f"/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/{name}"
+    object_image_path = f"/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/{name}"
+    txt_path = f"/data1/JM/code/BrushNet-main/datasets/MSRA-10K/text/{name.replace('.png', '.txt')}"
+    groundtruth_image_path = f"/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/{name}"
 
     # 读取描述文本
     with open(txt_path, "r") as f:
         caption = f.read()
 
     # 读取并转换图像
-    source_image = cv2.imread(source_image_path)
+    source_image = cv2.imread(source_image_path)[:,:,::-1]
     source_image = Image.fromarray(source_image.astype(np.uint8)).convert("RGB")
     background_image = transform_image(source_image)
 
-    target_image = cv2.imread(groundtruth_image_path)
+    target_image = cv2.imread(groundtruth_image_path)[:,:,::-1]
     target_image = Image.fromarray(target_image.astype(np.uint8)).convert("RGB")
     target_image = transform_image(target_image)
     target_image = load_image(groundtruth_image_path)
 
-    object_image = cv2.imread(object_image_path)
+    object_image = cv2.imread(object_image_path)[:,:,::-1]
     object_image = Image.fromarray(object_image.astype(np.uint8)).convert("RGB")
     object_image = transform_image(object_image)
 

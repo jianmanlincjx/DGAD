@@ -49,6 +49,11 @@ from .unet_2d_blocks import (
     get_up_block,
 )
 
+def zero_module(module):
+    for p in module.parameters():
+        nn.init.zeros_(p)
+    return module
+
 
 logger = logging.get_logger(__name__)  # pylint: disable=invalid-name
 
@@ -499,8 +504,13 @@ class UNet2DConditionModel(ModelMixin, ConfigMixin, UNet2DConditionLoadersMixin,
         self.conv_out = nn.Conv2d(
             block_out_channels[0], out_channels, kernel_size=conv_out_kernel, padding=conv_out_padding
         )
-        self.mid_block_me = CrossAttentionFusion(channels=1280, num_heads=8, dim_head=40)
+        self.connect_first_in = zero_module(nn.Conv2d(320, 320, kernel_size=1))
         self.first_me = CrossAttentionFusion(channels=320, num_heads=8, dim_head=40)
+        self.connect_first_out = zero_module(nn.Conv2d(320, 320, kernel_size=1))
+
+        self.connect_mid_in = zero_module(nn.Conv2d(1280, 1280, kernel_size=1))
+        self.mid_block_me = CrossAttentionFusion(channels=1280, num_heads=8, dim_head=40)
+        self.connect_mid_out = zero_module(nn.Conv2d(1280, 1280, kernel_size=1))
 
         self._set_pos_net_if_use_gligen(attention_type=attention_type, cross_attention_dim=cross_attention_dim)
 
@@ -1240,7 +1250,7 @@ class UNet2DConditionModel(ModelMixin, ConfigMixin, UNet2DConditionLoadersMixin,
         down_block_res_samples = (sample,)
 
         if is_brushnet:
-            sample_first = self.first_me(sample, down_block_add_samples.pop(0))
+            sample_first = self.connect_first_out(self.first_me(sample, self.connect_first_in(down_block_add_samples.pop(0))))
             sample = sample + sample_first
 
         for j, downsample_block in enumerate(self.down_blocks):
@@ -1312,7 +1322,7 @@ class UNet2DConditionModel(ModelMixin, ConfigMixin, UNet2DConditionLoadersMixin,
             sample = sample + mid_block_additional_residual
 
         if is_brushnet:
-            output_sample_mid = self.mid_block_me(sample, mid_block_add_sample)
+            output_sample_mid = self.connect_mid_out(self.mid_block_me(sample, self.connect_mid_in(mid_block_add_sample)))
             sample = sample + output_sample_mid
 
         # 5. up

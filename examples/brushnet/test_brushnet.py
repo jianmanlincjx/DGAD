@@ -3,6 +3,7 @@ import torch
 import cv2
 import numpy as np
 from PIL import Image
+
 # choose the base model here
 base_model_path = "pretrain_model/stable-diffusion-v1-5"
 # base_model_path = "runwayml/stable-diffusion-v1-5"
@@ -33,29 +34,36 @@ pipe.scheduler = UniPCMultistepScheduler.from_config(pipe.scheduler.config)
 # memory optimization.
 pipe.enable_model_cpu_offload()
 
-source_image = cv2.imread(image_path)[:,:,::-1]
-mask = 1.*(cv2.imread(mask_path).sum(-1)>255)[:,:,np.newaxis]
-background_image = source_image * (1-mask)
-object_image = source_image * (mask)
-object_mask = (1-mask)
+init_image = cv2.imread(image_path)[:,:,::-1]
+mask_image = 1.*(cv2.imread(mask_path).sum(-1)>255)[:,:,np.newaxis]
+init_image = init_image * (1-mask_image)
 
-background_image = Image.fromarray(background_image.astype(np.uint8)).convert("RGB")
-background_mask = Image.fromarray(mask.astype(np.uint8).repeat(3,-1)*255).convert("RGB")
-object_image = Image.fromarray(object_image.astype(np.uint8)).convert("RGB")
-object_mask = Image.fromarray(object_mask.astype(np.uint8).repeat(3,-1)*255).convert("RGB")
+init_image = Image.fromarray(init_image.astype(np.uint8)).convert("RGB")
+mask_image = Image.fromarray(mask_image.astype(np.uint8).repeat(3,-1)*255).convert("RGB")
 
 generator = torch.Generator("cuda").manual_seed(1234)
 
 image = pipe(
     caption, 
-    background_image, 
-    background_mask,
-    object_image, 
-    object_mask,
+    init_image, 
+    mask_image, 
     num_inference_steps=50, 
     generator=generator,
     brushnet_conditioning_scale=brushnet_conditioning_scale
 ).images[0]
 
+if blended:
+    image_np=np.array(image)
+    init_image_np=cv2.imread(image_path)[:,:,::-1]
+    mask_np = 1.*(cv2.imread(mask_path).sum(-1)>255)[:,:,np.newaxis]
 
-image.save("output_me_.png")
+    # blur, you can adjust the parameters for better performance
+    mask_blurred = cv2.GaussianBlur(mask_np*255, (21, 21), 0)/255
+    mask_blurred = mask_blurred[:,:,np.newaxis]
+    mask_np = 1-(1-mask_np) * (1-mask_blurred)
+
+    image_pasted=init_image_np * (1-mask_np) + image_np*mask_np
+    image_pasted=image_pasted.astype(image_np.dtype)
+    image=Image.fromarray(image_pasted)
+
+image.save("output.png")

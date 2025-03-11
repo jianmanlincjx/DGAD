@@ -92,9 +92,8 @@ class MyDataset(torch.utils.data.Dataset):
 
         mask = 1.*(cv2.imread(mask_image_path).sum(-1)>255)[:,:,np.newaxis]
         background_mask = mask
-        object_mask = (1-mask)
         background_mask = self.transform(Image.fromarray(background_mask.astype(np.uint8).repeat(3,-1)*255).convert("L"))
-        object_mask = self.transform(Image.fromarray(object_mask.astype(np.uint8).repeat(3,-1)*255).convert("L"))
+        object_mask = torch.zeros((1, target_image.shape[1], target_image.shape[2])) 
 
 
         # get text and tokenize

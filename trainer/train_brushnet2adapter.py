@@ -48,7 +48,6 @@ def set_requires_grad(model, param_name, value=True):
     final_attr = parts[-1]
     getattr(obj, final_attr).requires_grad_(value)
 
-
 # Dataset
 class MyDataset(torch.utils.data.Dataset):
 
@@ -57,10 +56,7 @@ class MyDataset(torch.utils.data.Dataset):
 
         self.tokenizer = tokenizer
         self.size = size
-        # list of dict: [{"source":"路径", "target":"路径", "mask":"路径", "object":"路径", text": "A dog"}]
-        # with open(json_file, 'r') as f:
-        #     self.data = [json.loads(line) for line in f]
-        #     print(f"数据加载完成，条目数：{len(self.data)}")
+
         self.data = json.load(open(json_file))
         print(f"数据加载完成，条目数：{len(self.data)}")
         self.transform = transforms.Compose([
@@ -71,31 +67,15 @@ class MyDataset(torch.utils.data.Dataset):
         
     def __getitem__(self, idx):
         item = self.data[idx] 
-        source_image_path = item['source']
-        target_image_path = item['target']
-        mask_image_path = item['mask']
-        object_image_path = item['object']
+        target_image_path = item['object']
         text = item["text"]
         
         # read image
-        source_image = cv2.imread(source_image_path)
-        source_image = Image.fromarray(source_image.astype(np.uint8)).convert("RGB")
-        source_image = self.transform(source_image)
-
         target_image = cv2.imread(target_image_path)
         target_image = Image.fromarray(target_image.astype(np.uint8)).convert("RGB")
         target_image = self.transform(target_image)
 
-        object_image = cv2.imread(object_image_path)
-        object_image = Image.fromarray(object_image.astype(np.uint8)).convert("RGB")
-        object_image = self.transform(object_image)
-
-        mask = 1.*(cv2.imread(mask_image_path).sum(-1)>255)[:,:,np.newaxis]
-        background_mask = mask
-        object_mask = (1-mask)
-        background_mask = self.transform(Image.fromarray(background_mask.astype(np.uint8).repeat(3,-1)*255).convert("L"))
-        object_mask = self.transform(Image.fromarray(object_mask.astype(np.uint8).repeat(3,-1)*255).convert("L"))
-
+        mask = torch.zeros((1, target_image.shape[1], target_image.shape[2])) 
 
         # get text and tokenize
         text_input_ids = self.tokenizer(
@@ -107,11 +87,8 @@ class MyDataset(torch.utils.data.Dataset):
         ).input_ids
         
         return {
-            "background": source_image,
             "groundtruth": target_image,
-            "background_mask": background_mask,
-            "foreground": object_image,
-            "foreground_mask": object_mask,
+            "mask": mask,
             "text": text_input_ids,
         }
 
@@ -120,19 +97,13 @@ class MyDataset(torch.utils.data.Dataset):
     
 
 def collate_fn(data):
-    source_images = torch.stack([example["background"] for example in data])
     target_images = torch.stack([example["groundtruth"] for example in data])
-    background_mask = torch.stack([example["background_mask"] for example in data])
-    object_mask = torch.stack([example["foreground_mask"] for example in data])
-    object_images = torch.stack([example["foreground"] for example in data])
+    mask = torch.stack([example["mask"] for example in data])
     text_input_ids = torch.cat([example["text"] for example in data], dim=0)
 
     return {
-            "background": source_images,
             "groundtruth": target_images,
-            "background_mask": background_mask,
-            "foreground": object_images,
-            "foreground_mask": object_mask,
+            "mask": mask,
             "text": text_input_ids,
            }
     
@@ -145,7 +116,7 @@ class IPAdapter(torch.nn.Module):
         self.unet = unet
         self.weight_dtype = weight_dtype
 
-    def forward(self, noisy_latents, source_latents_condation, conditioning_latents, timesteps, encoder_hidden_states):
+    def forward(self, noisy_latents, conditioning_latents, timesteps, encoder_hidden_states):
         # Predict the noise residual
         down_block_res_samples, mid_block_res_sample, up_block_res_samples = self.brushnet(
             noisy_latents,
@@ -157,7 +128,7 @@ class IPAdapter(torch.nn.Module):
 
         # Predict the noise residual
         model_pred = self.unet(
-            torch.concat([noisy_latents, source_latents_condation], dim=1),
+            noisy_latents,
             timesteps,
             encoder_hidden_states=encoder_hidden_states,
             down_block_add_samples=[
@@ -324,14 +295,12 @@ def main():
     vae.requires_grad_(False)
     text_encoder.requires_grad_(False)
     brushnet.requires_grad_(False)
-    unet.train()
+    unet.requires_grad_(False)
 
-    # if 'conv_in.weight' in unet.state_dict():
-    #     unet.conv_in.weight.requires_grad_(True)  # 打开 conv_in.weight 的训练
-    # for param_name in params_to_train:
-    #     if param_name in unet.state_dict():
-    #         set_requires_grad(unet, param_name, True)
-    #         print(f'unet.{param_name}.requires_grad_(True)')
+    for param_name in params_to_train:
+        if param_name in unet.state_dict():
+            set_requires_grad(unet, param_name, True)
+            print(f'unet.{param_name}.requires_grad_(True)')
 
     if args.enable_xformers_memory_efficient_attention:
         if is_xformers_available():
@@ -392,40 +361,26 @@ def main():
                     # Convert images to latent space
                     with torch.no_grad():
                         latents = vae.encode(batch["groundtruth"].to(accelerator.device, dtype=weight_dtype)).latent_dist.sample()
-                        source_latents = vae.encode(batch["background"].to(accelerator.device, dtype=weight_dtype)).latent_dist.sample()
-                        object_latents = vae.encode(batch["foreground"].to(accelerator.device, dtype=weight_dtype)).latent_dist.sample()
-
                         latents = latents * vae.config.scaling_factor
-                        source_latents = source_latents * vae.config.scaling_factor
                     ###############################################################################
                     # import torchvision
                     # torchvision.utils.save_image(batch["groundtruth"], "_groundtruth.png")
-                    # torchvision.utils.save_image(batch["background"], "_background.png")
-                    # torchvision.utils.save_image(batch["background_mask"], "_background_mask.png")
-                    # torchvision.utils.save_image(batch["foreground"], "_foreground.png")
-                    # torchvision.utils.save_image(batch["foreground_mask"], "_foreground_mask.png")
+                    # torchvision.utils.save_image(batch["mask"], "_mask.png")
                     # import time
                     # time.sleep(5)
                     ###############################################################################
                     
-                    background_mask = torch.nn.functional.interpolate(
-                        batch["background_mask"], 
+                    mask = torch.nn.functional.interpolate(
+                        batch["mask"], 
                         size=(
                             latents.shape[-2], 
                             latents.shape[-1]
                         )
                     )
-                    object_mask = torch.nn.functional.interpolate(
-                        batch["foreground_mask"], 
-                        size=(
-                            latents.shape[-2], 
-                            latents.shape[-1]
-                        )
-                    )
+
                     # Sample noise that we'll add to the latents
                     noise = torch.randn_like(latents)
                     bsz = latents.shape[0]
-
 
                     # Sample a random timestep for each image
                     timesteps = torch.randint(0, noise_scheduler.num_train_timesteps, (bsz,), device=latents.device)
@@ -437,9 +392,8 @@ def main():
                     with torch.no_grad():
                         encoder_hidden_states = text_encoder(batch["text"].to(accelerator.device))[0]
 
-                    conditioning_latents = torch.concat([object_latents, object_mask], dim=1)
-                    source_latents_condation = torch.concat([source_latents, background_mask], dim=1)
-                    noise_pred = ip_adapter(noisy_latents, source_latents_condation, conditioning_latents, timesteps, encoder_hidden_states)
+                    conditioning_latents = torch.concat([latents, mask], dim=1)
+                    noise_pred = ip_adapter(noisy_latents, conditioning_latents, timesteps, encoder_hidden_states)
 
                     # Calculate loss
                     loss = F.mse_loss(noise_pred.float(), noise.float(), reduction="mean")

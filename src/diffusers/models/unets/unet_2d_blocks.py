@@ -1448,9 +1448,17 @@ class CrossAttnDownBlock2D_me(nn.Module):
             )
         else:
             self.downsamplers = None
+        self.connect_0_in = zero_module(nn.Conv2d(in_channels, in_channels, kernel_size=1))
         self.down_0 = CrossAttentionFusion(channels=in_channels, num_heads=8, dim_head=40)
+        self.connect_0_out = zero_module(nn.Conv2d(in_channels, in_channels, kernel_size=1))
+
+        self.connect_1_in = zero_module(nn.Conv2d(in_channels, in_channels, kernel_size=1))
         self.down_1 = CrossAttentionFusion(channels=in_channels, num_heads=8, dim_head=40)
+        self.connect_1_out = zero_module(nn.Conv2d(in_channels, in_channels, kernel_size=1))
+
+        self.connect_1_in_downsamplers = zero_module(nn.Conv2d(in_channels, in_channels, kernel_size=1))
         self.down_1_downsamplers = CrossAttentionFusion(channels=in_channels, num_heads=8, dim_head=40)
+        self.connect_1_out_downsamplers = zero_module(nn.Conv2d(in_channels, in_channels, kernel_size=1))
 
         self.gradient_checkpointing = False
 
@@ -1515,9 +1523,10 @@ class CrossAttnDownBlock2D_me(nn.Module):
                 hidden_states = hidden_states + additional_residuals
 
             if down_block_add_samples is not None:
-                ## 融合
                 module = getattr(self, f"down_{i}")
-                module_output = module(hidden_states, down_block_add_samples.pop(0))
+                moudle_zero_in = getattr(self, f"connect_{i}_in")
+                moudle_zero_out = getattr(self, f"connect_{i}_out")
+                module_output = moudle_zero_out(module(hidden_states, moudle_zero_in(down_block_add_samples.pop(0))))
                 hidden_states = hidden_states + module_output
             else:
                 raise ValueError("CrossAttnDownBlock2D_me_down_block_add_samples is None!")
@@ -1529,7 +1538,9 @@ class CrossAttnDownBlock2D_me(nn.Module):
 
             if down_block_add_samples is not None:
                 module = getattr(self, f"down_{i}_downsamplers")
-                module_output = module(hidden_states, down_block_add_samples.pop(0))
+                moudle_zero_in = getattr(self, f"connect_{i}_in_downsamplers")
+                moudle_zero_out = getattr(self, f"connect_{i}_out_downsamplers")
+                module_output = moudle_zero_out(module(hidden_states, moudle_zero_in(down_block_add_samples.pop(0))))
                 hidden_states = hidden_states + module_output # todo: add before or after
             else:
                 raise ValueError("CrossAttnDownBlock2D_me_down_block_add_samples_downsamplers is None!")
@@ -1586,8 +1597,15 @@ class DownBlock2D_me(nn.Module):
             )
         else:
             self.downsamplers = None
+
+        self.connect_0_in = zero_module(nn.Conv2d(in_channels, in_channels, kernel_size=1))
         self.down_0 = CrossAttentionFusion(channels=in_channels, num_heads=8, dim_head=40)
+        self.connect_0_out = zero_module(nn.Conv2d(in_channels, in_channels, kernel_size=1))
+
+        self.connect_1_in = zero_module(nn.Conv2d(in_channels, in_channels, kernel_size=1))
         self.down_1 = CrossAttentionFusion(channels=in_channels, num_heads=8, dim_head=40)
+        self.connect_1_out = zero_module(nn.Conv2d(in_channels, in_channels, kernel_size=1))
+        
         self.gradient_checkpointing = False
 
     def forward(
@@ -1619,7 +1637,9 @@ class DownBlock2D_me(nn.Module):
 
             if down_block_add_samples is not None:
                 module = getattr(self, f"down_{i}")
-                module_output = module(hidden_states, down_block_add_samples.pop(0))
+                moudle_zero_in = getattr(self, f"connect_{i}_in")
+                moudle_zero_out = getattr(self, f"connect_{i}_out")
+                module_output = moudle_zero_out(module(hidden_states, moudle_zero_in(down_block_add_samples.pop(0))))
                 hidden_states = hidden_states + module_output
             else:
                 raise ValueError("DownBlock2D_me_down_block_add_samples is None!")
@@ -1634,6 +1654,7 @@ class DownBlock2D_me(nn.Module):
                 module_output = module(hidden_states, down_block_add_samples.pop(0))
                 hidden_states = hidden_states + module_output # todo: add before or after
                 print(f'DownBlock2D_me_down_{i}_downsamplers: {module_output.shape}')
+                raise ValueError("出错：这个位置不该加入特征")
             output_states = output_states + (hidden_states,)
 
         return hidden_states, output_states
@@ -1681,10 +1702,21 @@ class UpBlock2D_me(nn.Module):
 
         self.resnets = nn.ModuleList(resnets)
 
+        self.connect_0_in = zero_module(nn.Conv2d(in_channels, in_channels, kernel_size=1))
         self.up_0 = CrossAttentionFusion(channels=in_channels, num_heads=8, dim_head=40)
+        self.connect_0_out = zero_module(nn.Conv2d(in_channels, in_channels, kernel_size=1))
+
+        self.connect_1_in = zero_module(nn.Conv2d(in_channels, in_channels, kernel_size=1))
         self.up_1 = CrossAttentionFusion(channels=in_channels, num_heads=8, dim_head=40)
+        self.connect_1_out = zero_module(nn.Conv2d(in_channels, in_channels, kernel_size=1))
+
+        self.connect_2_in = zero_module(nn.Conv2d(in_channels, in_channels, kernel_size=1))
         self.up_2 = CrossAttentionFusion(channels=in_channels, num_heads=8, dim_head=40)
+        self.connect_2_out = zero_module(nn.Conv2d(in_channels, in_channels, kernel_size=1))
+
+        self.connect_2_in_upsamplers = zero_module(nn.Conv2d(in_channels, in_channels, kernel_size=1))
         self.up_2_upsamplers = CrossAttentionFusion(channels=in_channels, num_heads=8, dim_head=40)
+        self.connect_2_out_upsamplers = zero_module(nn.Conv2d(in_channels, in_channels, kernel_size=1))
 
         if add_upsample:
             self.upsamplers = nn.ModuleList([Upsample2D(out_channels, use_conv=True, out_channels=out_channels)])
@@ -1755,9 +1787,12 @@ class UpBlock2D_me(nn.Module):
                 output_states = output_states + (hidden_states,)
             if up_block_add_samples is not None:
                 module = getattr(self, f"up_{i}")
-                brushnet_sample = up_block_add_samples.pop(0)
+                moduke_zero_in = getattr(self, f"connect_{i}_in")
+                moduke_zero_out = getattr(self, f"connect_{i}_out")
+
+                brushnet_sample = moduke_zero_in(up_block_add_samples.pop(0))
                 module_output = module(hidden_states, brushnet_sample)
-                hidden_states = hidden_states + module_output
+                hidden_states = hidden_states + moduke_zero_out(module_output)
             else:
                 raise ValueError("UpBlock2D_me_up_block_add_samples is None!")
                 
@@ -1769,8 +1804,11 @@ class UpBlock2D_me(nn.Module):
                 output_states = output_states + (hidden_states,)
             if up_block_add_samples is not None:
                 module = getattr(self, f"up_{i}_upsamplers")
-                brushnet_sample = up_block_add_samples.pop(0)
-                module_output = module(hidden_states, brushnet_sample)
+                module_zero_in = getattr(self, f"connect_{i}_in_upsamplers")
+                module_zero_out = getattr(self, f"connect_{i}_out_upsamplers")
+
+                brushnet_sample = module_zero_in(up_block_add_samples.pop(0))
+                module_output = module_zero_out(module(hidden_states, brushnet_sample))
                 hidden_states = hidden_states + module_output
             else:
                 raise ValueError("UpBlock2D_me_up_block_add_samples_upsamplers is None!")
@@ -1817,10 +1855,21 @@ class CrossAttnUpBlock2D_me(nn.Module):
         if isinstance(transformer_layers_per_block, int):
             transformer_layers_per_block = [transformer_layers_per_block] * num_layers
 
+        self.connect_0_in = zero_module(nn.Conv2d(in_channels*2, in_channels*2, kernel_size=1))
         self.up_0 = CrossAttentionFusion(channels=in_channels*2, num_heads=8, dim_head=40)
+        self.connect_0_out = zero_module(nn.Conv2d(in_channels*2, in_channels*2, kernel_size=1))
+
+        self.connect_1_in = zero_module(nn.Conv2d(in_channels*2, in_channels*2, kernel_size=1))
         self.up_1 = CrossAttentionFusion(channels=in_channels*2, num_heads=8, dim_head=40)
+        self.connect_1_out = zero_module(nn.Conv2d(in_channels*2, in_channels*2, kernel_size=1))
+
+        self.connect_2_in = zero_module(nn.Conv2d(in_channels*2, in_channels*2, kernel_size=1))
         self.up_2 = CrossAttentionFusion(channels=in_channels*2, num_heads=8, dim_head=40)
+        self.connect_2_out = zero_module(nn.Conv2d(in_channels*2, in_channels*2, kernel_size=1))
+
+        self.connect_2_in_upsamplers = zero_module(nn.Conv2d(in_channels*2, in_channels*2, kernel_size=1))
         self.up_2_upsamplers = CrossAttentionFusion(channels=in_channels*2, num_heads=8, dim_head=40)
+        self.connect_2_out_upsamplers = zero_module(nn.Conv2d(in_channels*2, in_channels*2, kernel_size=1))
 
         for i in range(num_layers):
             res_skip_channels = in_channels if (i == num_layers - 1) else out_channels
@@ -1959,7 +2008,10 @@ class CrossAttnUpBlock2D_me(nn.Module):
                 output_states = output_states + (hidden_states,)
             if up_block_add_samples is not None:
                 module = getattr(self, f"up_{i}")
-                module_output = module(hidden_states, up_block_add_samples.pop(0))
+                module_zero_in = getattr(self, f"connect_{i}_in")
+                module_zero_out = getattr(self, f"connect_{i}_out")
+
+                module_output = module_zero_out(module(hidden_states, module_zero_in(up_block_add_samples.pop(0))))
                 hidden_states = hidden_states + module_output
             else:
                 raise ValueError("CrossAttnUpBlock2D_me_up_block_add_samples is None!")
@@ -1971,7 +2023,11 @@ class CrossAttnUpBlock2D_me(nn.Module):
                 output_states = output_states + (hidden_states,)
             if up_block_add_samples is not None:
                 module = getattr(self, f"up_{i}_upsamplers")
-                module_output = module(hidden_states, up_block_add_samples.pop(0))
+                module_zero_in = getattr(self, f"connect_{i}_in_upsamplers")
+                module_zero_out = getattr(self, f"connect_{i}_out_upsamplers")
+
+                module_output = module_zero_out(module(hidden_states, module_zero_in(up_block_add_samples.pop(0))))
+
                 hidden_states = hidden_states + module_output
             else:
                 raise ValueError("CrossAttnUpBlock2D_me_up_block_add_samples_upsamplers is None!")
@@ -2016,9 +2072,17 @@ class CrossAttnUpBlock2D_me_last(nn.Module):
         if isinstance(transformer_layers_per_block, int):
             transformer_layers_per_block = [transformer_layers_per_block] * num_layers
 
+        self.connect_0_in = zero_module(nn.Conv2d(in_channels, in_channels, kernel_size=1))
         self.up_0 = CrossAttentionFusion(channels=in_channels, num_heads=8, dim_head=40)
+        self.connect_0_out = zero_module(nn.Conv2d(in_channels, in_channels, kernel_size=1))
+
+        self.connect_1_in = zero_module(nn.Conv2d(in_channels, in_channels, kernel_size=1))
         self.up_1 = CrossAttentionFusion(channels=in_channels, num_heads=8, dim_head=40)
+        self.connect_1_out = zero_module(nn.Conv2d(in_channels, in_channels, kernel_size=1))
+        
+        self.connect_2_in = zero_module(nn.Conv2d(in_channels, in_channels, kernel_size=1))
         self.up_2 = CrossAttentionFusion(channels=in_channels, num_heads=8, dim_head=40)
+        self.connect_2_out = zero_module(nn.Conv2d(in_channels, in_channels, kernel_size=1))
 
         for i in range(num_layers):
             res_skip_channels = in_channels if (i == num_layers - 1) else out_channels
@@ -2157,7 +2221,9 @@ class CrossAttnUpBlock2D_me_last(nn.Module):
                 output_states = output_states + (hidden_states,)
             if up_block_add_samples is not None:
                 module = getattr(self, f"up_{i}")
-                module_output = module(hidden_states, up_block_add_samples.pop(0))
+                module_zero_in = getattr(self, f"connect_{i}_in")
+                module_zero_out = getattr(self, f"connect_{i}_out")
+                module_output = module_zero_out(module(hidden_states, module_zero_in(up_block_add_samples.pop(0))))
                 hidden_states = hidden_states + module_output
             else:
                 raise ValueError("CrossAttnUpBlock2D_me_last_up_block_add_samples is None!")
@@ -4757,3 +4823,8 @@ class KAttentionBlock(nn.Module):
         hidden_states = attn_output + hidden_states
 
         return hidden_states
+
+def zero_module(module):
+    for p in module.parameters():
+        nn.init.zeros_(p)
+    return module
