@@ -70,23 +70,14 @@ Use the following command for inference:
 python inference/inference_base_sdinpaint_ipadapter.py
 ```
 
-#### Sample Data
 We have provided some sample data in the `dataset_validation_demo` folder for quick testing:
 ```
 dataset_validation_demo/
 ├── source/     # Background images
 ├── object/     # Object images to be inserted
-├── mask/       # Mask images indicating object placement
+├── mask/       # Mask or box indicating object placement
 └── target/     # Ground truth images (for reference)
 ```
-
-You can directly run the inference code with these sample data.
-
-#### Input Requirements
-For inference, you need to provide:
-1. Source image: The background image where the object will be placed
-2. Object image: The object to be inserted
-3. Position information: Either a mask or bounding box indicating where the object should be placed in the source image
 
 
 ## 🏋️‍♂️ Training
