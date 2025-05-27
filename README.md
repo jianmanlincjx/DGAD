@@ -1,16 +1,20 @@
-# DGAD
+# 🎯 DGAD
 
-This is the official open-source code for the DGAD project.
+This is the official open-source code for the **DGAD** project.
 
-## Results
+---
 
-### Box Prompt Results
+## 🏆 Results
+
+### 🟦 Box Prompt Results  
 ![Box Prompt Results](result_base_boxprompt.png)
 
-### Mask Prompt Results
+### 🎭 Mask Prompt Results  
 ![Mask Prompt Results](result_base_mask_prompt.png)
 
-## Environment Setup
+---
+
+## ⚙️ Environment Setup
 
 This project uses conda for environment management. Please refer to `environment.yml` for environment configuration:
 
@@ -38,7 +42,7 @@ pip install opencv-python scikit-image timm einops
 pip install -e .
 ```
 
-## Pre-trained Models Download
+## 📥 Pre-trained Models Download
 
 Please download the following pre-trained models from Hugging Face:
 
@@ -51,14 +55,14 @@ Please download the following pre-trained models from Hugging Face:
    - Download Link: https://huggingface.co/camenduru/BrushNet/blob/main/segmentation_mask_brushnet_ckpt/diffusion_pytorch_model.safetensors
 
 3. Pre-trained Dense Cross Attention:
-   - Download Link: https://drive.google.com/file/d/1a4RYMa4_dT-ujxvVtXWByG2xYZUB9QWc/view?usp=sharing
+   - Download Link: https://drive.google.com/drive/folders/1bdYoh8u5MAHQTrV2qL7bRRq3i1fh0_MA?usp=drive_link
 
 4. Pre-trained Cross-Attention Adapter:
    - Download Link: https://drive.google.com/file/d/1sI3MsFGlzBIqxRd8XEuDmCZaxjsm_qjl/view?usp=drive_link
 
 After downloading, please place all models in the `pretrain_model` directory at the project root.
 
-## Inference
+## 🧪 Inference
 
 Use the following command for inference:
 
@@ -66,7 +70,7 @@ Use the following command for inference:
 python inference/inference_base_sdinpaint_ipadapter.py
 ```
 
-### Sample Data
+#### Sample Data
 We have provided some sample data in the `dataset_validation_demo` folder for quick testing:
 ```
 dataset_validation_demo/
@@ -78,7 +82,7 @@ dataset_validation_demo/
 
 You can directly run the inference code with these sample data.
 
-### Input Requirements
+#### Input Requirements
 For inference, you need to provide:
 1. Source image: The background image where the object will be placed
 2. Object image: The object to be inserted
@@ -92,7 +96,7 @@ dataset_validation/
 └── mask/       # Mask images indicating object placement
 ```
 
-## Training
+## 🏋️‍♂️ Training
 
 Use the following command for training:
 
@@ -100,7 +104,7 @@ Use the following command for training:
 bash train.sh
 ```
 
-### Data Format
+#### Data Format
 The training data should be organized in JSON format. Please refer to `data_small.json` for the data structure. The JSON file should contain:
 
 ```json
@@ -122,8 +126,9 @@ python tools/get_weight_brushadapter.py
 ```
 Then you can proceed with inference using the extracted weights.
 
-## Important Notes
+## 🚨 Important Notes
 
 - Ensure all pre-trained models are correctly downloaded and placed in the specified locations
-- Make sure you have sufficient GPU memory for training and inference
+- Training can be performed on a GPU with 24GB VRAM (e.g., RTX 3090, RTX 4090)
+- For inference, a GPU with 12GB VRAM is sufficient
 - CUDA 11.7 or higher is recommended
