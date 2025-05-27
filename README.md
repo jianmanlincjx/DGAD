@@ -290,3 +290,57 @@ The `--mask_key` indicates which kind of mask to use, `inpainting_mask` for insi
 
 Our code is modified based on [diffusers](https://github.com/huggingface/diffusers), thanks to all the contributors!
 
+
+## 环境配置
+
+本项目使用conda环境进行管理，请参考`environment.yml`文件进行环境配置：
+
+```bash
+conda env create -f environment.yml
+conda activate brushnet
+```
+
+## 预训练模型下载
+
+请从Hugging Face下载以下预训练模型：
+
+1. Stable Diffusion Inpainting模型：
+   - 模型名称：`models--runwayml--stable-diffusion-inpainting`
+   - 下载地址：https://huggingface.co/runwayml/stable-diffusion-inpainting
+
+2. BrushNet分割模型：
+   - 模型名称：`segmentation_mask_brushnet_ckpt`
+   - 下载地址：https://huggingface.co/your-username/segmentation_mask_brushnet_ckpt
+
+3. 图像编码器：
+   - 模型路径：`pretrain_model/image_encoder`
+   - 下载地址：https://huggingface.co/your-username/image_encoder
+
+4. BERT模型：
+   - 模型名称：`models--bert-base-uncased`
+   - 下载地址：https://huggingface.co/bert-base-uncased
+
+下载完成后，请将模型放置在项目根目录下的`pretrain_model`文件夹中。
+
+## 推理
+
+使用以下命令进行推理：
+
+```bash
+python inference/inference_base_sdinpaint_ipadapter.py
+```
+
+## 训练
+
+使用以下命令进行训练：
+
+```bash
+bash train.sh
+```
+
+## 注意事项
+
+- 确保所有预训练模型都已正确下载并放置在指定位置
+- 训练和推理时请确保有足够的GPU内存
+- 建议使用CUDA 11.7或更高版本
+
