@@ -6,7 +6,7 @@ This is the official open-source code for the **DGAD** project.
 
 ## 🏆 Results
 
-### 🟦 Box Prompt Results  
+### Box Prompt Results  
 ![Box Prompt Results](result_base_boxprompt.png)
 
 ### 🎭 Mask Prompt Results  
@@ -14,7 +14,7 @@ This is the official open-source code for the **DGAD** project.
 
 ---
 
-## ⚙️ Environment Setup
+## Environment Setup
 
 This project uses conda for environment management. Please refer to `environment.yml` for environment configuration:
 
@@ -99,7 +99,7 @@ The training data should be organized in JSON format. Please refer to `data_smal
             "mask": "path/to/mask/image.png",
             "object": "path/to/object/image.jpg"
         },
-        ...
+        
     ]
 }
 ```
