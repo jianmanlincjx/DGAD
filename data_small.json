@@ -1,0 +1,716 @@
+[
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000000.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000000.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000000.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000000.png",
+        "text": "A warm, glowing light fixture with a circular shape, emitting a soft orange hue. The light bulb is encased in a translucent, ribbed glass shade that diffuses the light, creating a gentle, ambient glow. The fixture has a classic, vintage design with a metallic finish, and the light cas"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000001.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000001.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000001.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000001.png",
+        "text": "A seagull with a white and gray plumage, featuring a yellow beak and black wingtips, perched on a dark surface. The bird's feathers are smooth and well-defined, with a slight sheen. The beak is pointed and appears to be in a resting position. The bird's eyes are not visible, and the"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000002.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000002.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000002.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000002.png",
+        "text": "A character with a large, round, white face and a wide, toothy smile. The character has blonde hair and is wearing a brown vest over a red shirt. A green scarf is wrapped around the neck, and a hat adorned with yellow flowers and green leaves sits atop the head. The character's expression is cheerful and play"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000003.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000003.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000003.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000003.png",
+        "text": "A close-up of a single, vibrant orange-red leaf with a glossy surface and a prominent, dark brown stem with a greenish-yellow tip. The leaf's edges are slightly wavy, and the texture appears smooth and slightly veiny. The stem is slender and tapers towards the tip. The leaf's coloration is rich"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000004.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000004.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000004.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000004.png",
+        "text": "A hummingbird with a long, slender beak and a vibrant green head, featuring a mix of brown and white feathers on its body, is captured in mid-flight against a black background. The bird's wings are outstretched, showcasing a pattern of brown and white feathers, while its tail is slightly visible. The"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000005.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000005.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000005.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000005.png",
+        "text": "A single white orchid with a vibrant orange center, featuring delicate petals and a prominent stamen. The flower's texture appears smooth and the petals are slightly curved, creating a visually appealing contrast against the dark background. The center of the flower is intricately detailed with a mix of white and orange hues, highlighting the natural"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000006.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000006.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000006.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000006.png",
+        "text": "A detailed, textured sculpture of a human head with a weathered, aged appearance, featuring a prominent nose and closed eyes. The sculpture has a rough, uneven surface with variations in color from light to dark gray, suggesting a stone or concrete material. The head is positioned at an angle, with the forehead slightly elevated, giving a sense of depth"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000007.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000007.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000007.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000007.png",
+        "text": "A detailed image of a motorcycle with a sleek design, featuring a red and white color scheme. The motorcycle has a chrome engine, black leather seat, and handlebars. The wheels are black with silver rims, and the tires appear to be made of rubber. The motorcycle is positioned on a stand, showcasing its front and"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000008.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000008.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000008.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000008.png",
+        "text": "A single, vibrant yellow leaf with a slightly jagged edge and a smooth, wavy margin. The leaf has a textured surface with a mix of darker and lighter yellow spots, suggesting a natural, organic pattern. The veins are visible and run from the stem to the edges of the leaf. The leaf is set against a black background"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000009.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000009.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000009.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000009.png",
+        "text": "A close-up of a human eye with a detailed view of the iris, pupil, and surrounding structures. The iris has a pattern of concentric circles with varying shades of brown and yellow, and the pupil appears black and centered. The cornea is visible with a slight reflection, and the sclera is a pale color. The texture of the"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000010.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000010.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000010.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000010.png",
+        "text": "A close-up of a golden retriever's face, showcasing its soft, light-colored fur, expressive eyes, and a pink tongue slightly visible as it appears to be panting. The dog's nose is black and prominent, and its ears are not fully visible in the frame. The image captures the dog's gentle"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000011.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000011.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000011.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000011.png",
+        "text": "A bright, circular light source with a glowing white center and a darker blue halo, creating a gradient effect from the center to the edge. The light appears to be diffused, with a soft, out-of-focus quality. The light's intensity diminishes towards the edges, giving it a luminous, ethereal appearance. The ligh"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000012.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000012.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000012.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000012.png",
+        "text": "A close-up of a red, circular object with a metallic rim, resembling a button or a badge, set against a green, textured background. The object has a glossy finish and appears to be affixed to a surface with a small, cylindrical protrusion. The texture of the green background suggests a rough, possibly artificial"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000013.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000013.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000013.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000013.png",
+        "text": "A close-up of a monkey's face with a textured fur pattern, featuring large, expressive eyes with a hint of blue reflection, a prominent nose, and a mix of brown and black fur colors. The fur appears slightly matted and the skin is visible around the eyes and mouth. The image has a realistic and detailed texture, capturing the mon"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000014.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000014.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000014.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000014.png",
+        "text": "A bird in flight with a predominantly white body and dark wingtips, showcasing a detailed feather texture and a streamlined shape. The bird's wings are fully extended, and its tail is visible, indicating a dynamic and graceful motion. The bird's head is turned slightly, giving a sense of direction and purpose to its flight. The image"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000015.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000015.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000015.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000015.png",
+        "text": "A single red pear with a glossy, slightly wrinkled skin and a small white stem at the top. The pear is centered in the image, with a dark background emphasizing its vibrant color and texture. The pear appears ripe and juicy, with a smooth, rounded shape."
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000016.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000016.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000016.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000016.png",
+        "text": "A close-up of a small, round, brownish-gray seed with a rough texture, partially submerged in water, with a white, pinkish-purple, and brownish-purple flower bud emerging from the water's surface. The bud has a smooth texture and a gradient of colors. The background is dark, emphasizing the seed"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000017.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000017.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000017.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000017.png",
+        "text": "A single white starfish with a textured surface, exhibiting five arms extending outward from a central point, set against a dark background. The starfish appears to be in a natural state, with a slightly rough and uneven texture on its surface. The image captures the starfish in a clear and focused manner, highlighting its unique shape and the contrast between its"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000018.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000018.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000018.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000018.png",
+        "text": "A single, charred, and wrinkled pumpkin with a dark, burnt orange hue and patches of blackened areas, showcasing a rough texture and a pointed tip. The pumpkin appears to have been exposed to high heat, resulting in a blistered and scorched appearance. The background is not visible."
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000019.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000019.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000019.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000019.png",
+        "text": "A single, vibrant red rose with a glossy, dew-covered petal texture, showcasing the intricate details of its petals and the delicate green stem. The rose appears fresh and full of life, with a rich, deep red hue and a slightly translucent quality. The lighting accentuates the rose'"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000020.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000020.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000020.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000020.png",
+        "text": "A vibrant, multicolored cluster of cylindrical objects with varying lengths and hues, densely packed together, creating a spherical shape. The colors include red, blue, green, yellow, and white, with a mix of thin and thick textures. The arrangement is tight and uniform, giving a sense of a tightly woven fabric or a"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000021.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000021.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000021.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000021.png",
+        "text": "A close-up of a gold-colored ring with a large, round, clear gemstone set in a bezel setting. The band of the ring is smooth and polished, with a slight curve. The gemstone is faceted and reflects light, giving it a sparkling appearance. The metal has a warm, golden hue and shows signs of pol"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000022.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000022.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000022.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000022.png",
+        "text": "A close-up of a circular object with a gradient of blue and brown colors, featuring a textured surface with a pattern of concentric circles and a central darker area. The object has a glossy finish, reflecting light and creating a sense of depth. The texture appears to be made of a fine, woven material. The overall shape is symmetrical and"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000023.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000023.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000023.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000023.png",
+        "text": "A small, gray mouse with pink ears and eyes is perched on a shiny, metallic coin. The coin has a reflective surface and is embossed with the word \"QUARTER\" around its edge. The mouse appears to be a detailed, realistic sculpture with a smooth texture. The coin's edge is slightly raised, giving a"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000024.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000024.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000024.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000024.png",
+        "text": "A yellow, textured, conical object with a black, bold, capitalized text logo that reads \"E F P T O Z L P E C F D\" on its surface. The object has a glossy finish and appears to be made of a plastic or resin material. The design is simple and modern, with a gradient effect on the background."
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000025.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000025.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000025.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000025.png",
+        "text": "A tiger with distinctive orange and black stripes, resting on its side with its head turned towards the camera, showcasing its sharp teeth and intense gaze. The tiger's fur appears soft and well-groomed, with a mix of light and dark stripes creating a pattern that is characteristic of its species. The tiger's"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000026.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000026.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000026.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000026.png",
+        "text": "A close-up of a metallic, cylindrical object with a textured, grayish-blue top and a shiny, golden-colored base. The object has a series of ridges and grooves on its surface, giving it a mechanical appearance. The top is slightly domed and appears to be made of a different material than the base."
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000027.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000027.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000027.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000027.png",
+        "text": "A close-up of a translucent green sphere with a bright yellow, curved shape on its surface, reflecting light and creating a shiny, glossy texture. The sphere appears to be slightly wet, with tiny water droplets scattered across its surface. The yellow shape has a smooth, curved edge and a gradient of yellow to white color. The"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000028.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000028.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000028.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000028.png",
+        "text": "A glossy, red apple with a smooth, shiny surface and a slightly lighter red blush on the top. The apple has a round shape with a small, green stem at the top center. The skin is speckled with tiny, natural blemishes."
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000029.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000029.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000029.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000029.png",
+        "text": "A single, smooth, off-white seashell with a slightly curved, spiral shape and a subtle gradient of color from pale cream to a soft peach hue. The shell's surface is smooth with a few minor ridges and textures, giving it a polished appearance. The shell's apex is rounded and tapered"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000030.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000030.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000030.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000030.png",
+        "text": "A man with short hair, wearing a white striped shirt with the sleeves rolled up to his elbows, standing against a black background. The shirt has a textured pattern, and the man's expression is serious. He is wearing blue jeans. The lighting is focused on him, creating a dramatic effect."
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000031.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000031.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000031.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000031.png",
+        "text": "A single, spherical, pale pink seed with a smooth, shiny surface, positioned to the left of a cluster of delicate, white flowers with yellow centers and soft, ruffled petals. The flowers have a slightly translucent quality, and the seed appears to be resting on a reflective surface, casting a subtle shadow. The"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000032.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000032.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000032.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000032.png",
+        "text": "A squirrel with a bushy tail, predominantly brown and white fur, standing on its hind legs, facing right, with a detailed texture of fur and a small, dark eye visible. The squirrel's front paws are slightly raised, and it appears to be in a natural, outdoor setting. The image is in high resolution, ca"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000033.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000033.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000033.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000033.png",
+        "text": "A dark silhouette of a palm tree with intricate leaf patterns, featuring a central trunk and multiple branching fronds. The leaves have a glossy texture, and the overall color is a deep, dark hue against a black background. The image captures the tree's form and the delicate veins of the leaves in a stark contrast."
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000034.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000034.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000034.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000034.png",
+        "text": "A close-up of a white dog with a black nose and dark eyes, featuring a smooth coat with a few scattered dark spots. The dog's ears are perked up and its expression is attentive. The background is completely black, emphasizing the dog's features."
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000035.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000035.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000035.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000035.png",
+        "text": "A gray duck with a white belly and a black beak, resting on a white, fluffy, textured surface. The duck's feathers are detailed with shades of gray and white, and its head is slightly turned to the side. The beak is long and pointed, and the eyes are not visible. The duck appears cal"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000036.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000036.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000036.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000036.png",
+        "text": "A clear glass bottle with a golden liquid, labeled \"Jim Beam\" in bold red and white text, with a flame flickering at the bottom, casting a warm glow on the label. The bottle has a slender neck and a rounded body, reflecting light on its surface. The liquid inside appears amber-colored, suggesting"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000037.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000037.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000037.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000037.png",
+        "text": "A close-up of a frothy, golden-brown beverage in a clear glass with a thick, creamy head. The glass has a white label with black text and a logo. The drink appears smooth and rich, with a shiny, foamy top. The glass is cylindrical with a slight taper towards the bottom. The texture of the f"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000038.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000038.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000038.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000038.png",
+        "text": "A close-up of a golden-brown, flaky pastry with a partially open top revealing a savory filling, resting on a dark surface. The pastry has a smooth, shiny texture and a slightly crispy edge. The filling appears to be a mixture of meat and vegetables, with a reddish hue. The pastry"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000039.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000039.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000039.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000039.png",
+        "text": "A close-up of a textured, circular object with a mottled pattern of dark and light brown tones, featuring a small yellowish-green creature in the center. The texture appears rough and granular, with a slightly raised, bumpy surface. The object has a distinct, circular shape with a smooth outer edge. The creature is small and appears"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000040.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000040.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000040.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000040.png",
+        "text": "An orange banana with a textured surface, curved shape, and a glossy sheen, featuring repeated text patterns along its length. The banana is positioned diagonally, with the stem pointing upwards and the bottom end curving downwards. The background is black, emphasizing the vibrant orange color and the textured appearance of the ban"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000041.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000041.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000041.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000041.png",
+        "text": "A superhero figurine with a red suit, yellow boots, and a yellow belt with a lightning bolt emblem. The character has a red mask with yellow eyebrows and a yellow lightning bolt on the chest. The suit has a glossy texture, and the boots have a shiny finish. The character is in"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000042.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000042.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000042.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000042.png",
+        "text": "A woman with fair skin and vibrant red hair, her hair styled in loose waves. She has a serious expression, with her lips closed and eyes looking directly at the camera. She is wearing a delicate necklace with a cross pendant. The lighting accentuates her facial features and the texture of her hair, creating a dramatic contrast."
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000043.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000043.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000043.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000043.png",
+        "text": "A white seagull with a red beak and feet, wings spread wide in flight, against a black background. The bird's feathers are smooth and well-defined, with a slight sheen. The beak is pointed and the eyes are not visible. The tail is long and slightly curved. The bird is captured in a dynamic pose, showcasing"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000044.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000044.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000044.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000044.png",
+        "text": "A young child in a white t-shirt and light blue pants is holding a large, green, curved object resembling a banana. The child's expression is focused and determined as they walk forward. The object has a smooth texture and a vibrant green color. The child's hair is short and dark, and they appear to be in"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000045.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000045.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000045.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000045.png",
+        "text": "A close-up of a pink flamingo with a long, slender neck and a black beak. The bird's feathers are smooth and have a soft pink hue, with a hint of white on the head. The flamingo's legs are thin and pale, and its eyes are small and dark. The bird is standing on one"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000046.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000046.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000046.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000046.png",
+        "text": "A giraffe with a pattern of brown and white spots, standing behind a black wire mesh fence. The giraffe's neck is bent downward, and its head is close to the fence. The texture of the giraffe's fur is visible, with a mix of light and dark brown patches. The fence has a coarse"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000047.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000047.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000047.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000047.png",
+        "text": "A white church with a pointed steeple and a small, arched doorway. The building has a symmetrical facade with a central door flanked by two windows. The roof is covered with dark shingles, and the walls appear to be made of a light-colored material. The church's architecture suggests a traditional design, with a simple and"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000048.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000048.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000048.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000048.png",
+        "text": "A woman with glasses, smiling, wearing a white long-sleeved shirt with a red and white logo on the left chest, black pants, and black socks. She is seated with her legs crossed, hands resting on her knees. The shirt has a textured pattern on the sleeves and a small red e"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000049.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000049.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000049.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000049.png",
+        "text": "A close-up of a white daisy with a vibrant purple center, featuring a bee on one of the petals. The bee is small, with a striped body and wings. The petals are smooth and have a delicate, layered texture. The center of the flower is densely packed with small, dark purple florets"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000050.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000050.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000050.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000050.png",
+        "text": "A close-up of a bird's head with a detailed texture, featuring a sharp beak and a fierce expression. The feathers are intricately patterned with shades of brown and gray, and the eye is prominent with a piercing gaze. The beak is curved and appears to be made of a shiny material, possibly metal or a"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000051.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000051.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000051.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000051.png",
+        "text": "A close-up of a cluster of light-colored, textured gastropod shells with a rough, uneven surface and a central, slightly darker shell. The shells have a spiral pattern and are tightly packed together. The overall appearance is organic and natural."
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000052.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000052.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000052.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000052.png",
+        "text": "A woman with blonde hair wearing a red baseball cap and a striped polo shirt. She is holding a soccer ball with her right hand, and her left hand is resting on her thigh. The soccer ball is light-colored with visible stitching. She has a lanyard around her neck with a small red object attached"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000053.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000053.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000053.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000053.png",
+        "text": "A close-up of a person's face, smiling, wearing a red hard hat with a blue logo and a white sticker on the front. The hat has a black adjustment strap and a black chin strap. The person's hair is short and light-colored. The background is black, emphasizing the subject."
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000054.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000054.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000054.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000054.png",
+        "text": "A person wearing a red helmet and a black jacket is bending forward with their left hand pointing upwards. The helmet has a blue logo on the front. The person is wearing white gloves and has a backpack with a blue strap. The background is dark and out of focus."
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000055.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000055.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000055.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000055.png",
+        "text": "A square window with a white frame, featuring a reflection of a tree with green leaves and a cloudy sky. The window has a smooth, glossy finish and is set against a black background. The reflection is clear and detailed, showing the intricate branches and leaves of the tree. The window appears to be made of glass and is the main focus of the image."
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000056.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000056.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000056.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000056.png",
+        "text": "A young child with light brown hair, wearing a blue jacket, is holding a large, plush teddy bear with a multicolored ribbon around its neck. The teddy bear has a soft, fluffy texture and a rich brown color. The child's expression is focused and content as they cradle the bear. The background is dark,"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000057.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000057.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000057.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000057.png",
+        "text": "A cartoon character with a round, bulbous head, wearing a green and purple outfit, is falling backwards with arms and legs spread out. The character has a playful expression and is depicted in a dynamic, mid-air pose against a black background. The character's limbs are exaggerated, and the outfit has a shiny"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000058.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000058.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000058.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000058.png",
+        "text": "A young girl with a joyful expression, her hands gently placed on her cheeks. She wears a vibrant dress adorned with sunflowers and red accents, paired with a pink top and black shoes. The dress has a floral pattern with large sunflowers and smaller red and yellow flowers, creating a cheerful and col"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000059.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000059.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000059.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000059.png",
+        "text": "A close-up of a bird's head with a white and gray plumage, a yellow and orange beak, and a black eye with a white sclera. The beak is slightly open, revealing a hint of the bird's throat. The texture of the feathers appears soft and fluffy. The bird's expression is neutral"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000060.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000060.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000060.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000060.png",
+        "text": "A group of people in red and white life jackets are gathered around a black and red inflatable boat. The boat has a visible logo on the side. The individuals are wearing helmets and appear to be engaged in a rescue or safety operation. The scene is set in a body of water, and the focus is on the boat and the people around it."
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000061.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000061.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000061.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000061.png",
+        "text": "A vibrant red poppy wreath with a white label on the left side, featuring a black border and text. The poppies are densely packed, creating a circular shape with a textured appearance. The wreath is set against a black background."
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000062.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000062.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000062.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000062.png",
+        "text": "A person wearing a red and blue jacket with a white helmet that has a light on top. The jacket has a zipper and a logo on the left chest area. The person is standing against a dark background. The helmet has a visor and the person appears to be wearing earrings. The jacket has a high colla"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000063.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000063.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000063.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000063.png",
+        "text": "A detailed action figure of a superhero with a red and blue suit, featuring a web pattern on the chest and a spider emblem on the forehead. The figure is in a dynamic pose with one arm extended forward and the other bent at the elbow, showcasing a muscular build and a determined expression. The suit has a glossy finish"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000064.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000064.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000064.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000064.png",
+        "text": "A close-up of a bird with a long, slender beak and a vibrant plumage featuring shades of blue and pink. The feathers appear soft and well-defined, with a slight sheen. The bird's head is turned slightly to the side, showcasing its yellow eye and the intricate details of its beak."
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000065.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000065.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000065.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000065.png",
+        "text": "A woman with a crown on her head, wearing a black dress with a pearl necklace. She has long, dark hair and a serious expression. The image is in black and white."
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000066.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000066.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000066.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000066.png",
+        "text": "A glossy, red, irregularly shaped object with a smooth, shiny surface and a dark, leaf-like protrusion on one side. The object has a translucent quality and reflects light, giving it a slightly iridescent appearance. The texture appears soft and flexible."
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000067.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000067.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000067.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000067.png",
+        "text": "A young girl with a gentle smile, her face is the main focus. She has a round face, a soft expression, and her eyes are looking directly at the viewer. Her hair is light-colored and neatly styled. The image is in black and white, emphasizing the contrast and texture of her features. The background is completely black, ensuring the"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000068.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000068.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000068.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000068.png",
+        "text": "A young man with a neutral expression, wearing a light-colored baseball cap with the Adidas logo. The cap has a curved brim and a flat bill. The man has short, dark hair and a light complexion. He is looking directly at the camera with a subtle smile. The background is black, emphasizing the subject."
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000069.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000069.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000069.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000069.png",
+        "text": "A nude male figure with a muscular build, mid-stride, arms outstretched, against a black background. The skin tone is light, and the muscles are well-defined, with a smooth texture. The figure's hair is short and light brown. The pose suggests movement and freedom."
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000070.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000070.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000070.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000070.png",
+        "text": "A black, sharp-edged object with a pointed tip, resembling a knife or a spike, is positioned on the left side of a white, irregularly shaped object with a smooth, curved surface. The white object has a soft, wavy texture, and the black object has a glossy finish. The contrast between the two is"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000071.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000071.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000071.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000071.png",
+        "text": "A vibrant flower with a yellow and red gradient, featuring five petals with a darker red outline and a central yellow and orange core. The petals have a smooth texture and a slight curvature, giving the flower a dynamic appearance. The flower is the main focus against a black background."
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000072.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000072.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000072.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000072.png",
+        "text": "A solitary coniferous tree with a robust, straight trunk and dense, dark green foliage. The tree's branches spread outward, creating a canopy that appears to be well-lit from above. The texture of the bark is rough and rugged, indicative of a mature tree. The image captures the tree in a natural setting"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000073.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000073.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000073.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000073.png",
+        "text": "A vibrant pink gerbera daisy with a yellow center, featuring multiple layers of petals and a textured appearance, set against a black background."
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000074.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000074.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000074.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000074.png",
+        "text": "An old, rusted metal wheel with six spokes, showing signs of wear and age, resting on a patch of grass. The wheel has a circular shape with a central hub and is surrounded by a rough, textured surface. The color is a mix of brown and green, indicating oxidation and exposure to the elements. The grass is uneven and has"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000075.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000075.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000075.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000075.png",
+        "text": "A black, shiny, metallic chain with a reflective surface, featuring interlocking links and a smooth texture. The chain is positioned in a way that suggests it is hanging or suspended, with a slight curve to its shape. The lighting accentuates the reflective qualities of the chain, creating highlights and shadows that emphas"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000076.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000076.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000076.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000076.png",
+        "text": "A crumpled white paper with black text that reads \"PAD ER ENGINN HLUTLAUS!\""
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000077.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000077.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000077.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000077.png",
+        "text": "A black and white rose with a textured petal surface, displaying a gradient of light to dark shades, creating a sense of depth and dimension. The rose is in full bloom, with a prominent central stem and multiple layers of petals that curl and fold elegantly. The edges of the petals are slightly crinkled, adding to the overall intricate"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000078.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000078.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000078.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000078.png",
+        "text": "A flag with a wavy, flowing design, featuring the iconic stripes and stars of the American flag, rendered in a realistic style with a focus on the texture and folds of the fabric. The colors are vibrant, with red, white, and blue stripes and a blue field with white stars. The flag appears to be in motion, with"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000079.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000079.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000079.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000079.png",
+        "text": "A black and white chandelier with multiple arms and candle-like bulbs, intricately designed with a central ornate structure and reflective surfaces. The lighting creates a dramatic contrast, highlighting the chandelier's elegant details and craftsmanship."
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000080.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000080.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000080.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000080.png",
+        "text": "A vibrant orange flower with a textured, spiky center and delicate petals, set against a dark background. The flower's petals are layered and have a gradient of color from a lighter orange at the edges to a deeper hue at the center. The texture of the petals appears soft and slightly wavy, while the center is"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000081.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000081.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000081.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000081.png",
+        "text": "A blue and white bird with a pointed beak and a white throat, perched against a black background. The bird's feathers are smooth and glossy, with a gradient of blue on its wings and a white belly. The bird's eyes are dark and focused, and its tail is long and slightly curved. The bird's legs are"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000082.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000082.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000082.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000082.png",
+        "text": "A small, detailed figurine of a gray cat with a striped tail and a white patch on its chest. The cat is sitting on a textured, rock-like base. A tiny human figure in a red and white striped shirt and blue pants is standing to the right of the cat, appearing to be in a playful pose. The figurine"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000083.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000083.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000083.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000083.png",
+        "text": "A single, vibrant purple flower with delicate petals and a cluster of yellow stamens in the center, set against a black background. The flower's texture appears soft and slightly translucent, with a hint of green at the base. The petals are slightly ruffled, giving a sense of depth and dimension. The image captures the flowe"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000084.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000084.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000084.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000084.png",
+        "text": "A gray military cargo aircraft with a distinctive tail fin and two engines, featuring a streamlined fuselage and a pointed nose. The aircraft has a matte finish and appears to be a large, heavy-duty transport plane designed for carrying significant payloads. The cockpit is visible at the front, and the landing gear is extended, suggesting the plane"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000085.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000085.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000085.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000085.png",
+        "text": "A white clock tower with a pointed spire and a clock face on each side. The tower has arched windows and decorative elements. The sunlight casts shadows on the tower, highlighting its architectural details. The foreground is dominated by the tower's structure and the clock faces."
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000086.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000086.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000086.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000086.png",
+        "text": "A single yellow maple leaf with a slightly wavy edge, showing signs of weathering and spots of brown. The leaf is attached to a stem with a thin, brownish-red color. The leaf's surface has a textured appearance, with visible veins and a slightly rough texture. The leaf is the main focus of the image, with a black background"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000087.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000087.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000087.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000087.png",
+        "text": "A cheerful yellow alarm clock with a smiling face, featuring two round ears on top, a black clock face with numbers from 1 to 12, and two black hands indicating the time. The clock has a playful and friendly design, with a simple, cartoonish style. The background is not visible."
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000088.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000088.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000088.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000088.png",
+        "text": "A close-up of a cream-colored cat's head with prominent ears, striking yellow eyes, and a soft, fluffy fur texture. The cat's face is centered, with a clear focus on its facial features against a plain background."
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000089.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000089.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000089.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000089.png",
+        "text": "A young boy with light brown hair and a neutral expression, wearing a gray shirt. The image is a close-up of his face, capturing his features and hair texture against a black background."
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000090.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000090.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000090.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000090.png",
+        "text": "A young girl with blonde hair, smiling gently, wearing a black scarf with a silver zipper. The scarf is draped around her neck, and she has a light complexion. The image is in portrait orientation, with a focus on her face and upper body. The background is not visible."
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000091.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000091.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000091.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000091.png",
+        "text": "A dense cluster of small, round, red berries with green leaves, forming a rounded shape. The berries have a glossy texture, and the leaves are a mix of green and reddish hues. The overall appearance is vibrant and full of life."
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000092.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000092.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000092.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000092.png",
+        "text": "A close-up of a wooden hairbrush with white bristles, featuring a curved handle and a circular base. The bristles are arranged in a dense, parallel fashion, and the wood has a smooth, polished finish. The brush appears to be designed for detangling and styling hair."
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000093.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000093.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000093.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000093.png",
+        "text": "A close-up of a sign with a yellow border and a red background, featuring the words \"U.S. PROPERTY\" in white uppercase letters, and \"NO TRESPASSING\" in white uppercase letters on a blue background. The sign has a three-dimensional appearance with a slight shadow indicating it's standing upright. The sign"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000094.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000094.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000094.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000094.png",
+        "text": "An open book with white pages, displaying dense text in a serif font. The pages are slightly curled at the edges, suggesting a soft, flexible material. The text is organized in columns, with numbers at the top of each page indicating chapters or sections. The lighting casts a subtle shadow on the pages, enhancing the texture and depth of the"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000095.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000095.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000095.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000095.png",
+        "text": "A black and white image of a person sitting with a contemplative expression. The individual is wearing a wide-brimmed hat and a long, flowing coat. The coat has a textured appearance, and the person's hands are resting on their knees. The person's hair is styled in a voluminous manner, and they are"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000096.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000096.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000096.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000096.png",
+        "text": "A modern, circular wall clock with a sleek black frame and a blue gradient background. The clock has a minimalist design with a white hour and minute hand, and a small white logo at the top center. The background features a subtle pattern of diagonal lines in a darker shade of blue. The clock's design is contemporary and elegant, with a focus on"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000097.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000097.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000097.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000097.png",
+        "text": "A butterfly with a pale yellow and brown pattern resting on a green leaf. The leaf has a smooth texture and a slightly wavy edge. The butterfly's wings are partially open, revealing intricate patterns and a delicate texture. The overall scene is serene and natural."
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000098.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000098.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000098.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000098.png",
+        "text": "An elderly man with deep-set eyes, prominent cheekbones, and a weathered complexion. His hair is short and gray, with visible wrinkles and lines on his face. The expression is serious and contemplative. The skin texture appears smooth with some age spots and fine lines."
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000099.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000099.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000099.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000099.png",
+        "text": "A vibrant yellow flower with a prominent central disc and five petals, exhibiting a soft texture and a gradient of color intensity from the center to the edges. The petals are slightly ruffled, adding a delicate detail to the overall appearance. The flower is the main focus of the image, with a dark background that contrasts sharply with its bright h"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000100.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000100.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000100.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000100.png",
+        "text": "An old, rusted metal object with a rectangular shape and a series of horizontal slats. The object has a dark, weathered appearance with visible signs of wear and tear. The texture is rough and uneven, with some areas showing signs of corrosion. The object is mounted on a single wheel, suggesting it may be a part of a larger machine"
+    },
+    {
+        "source": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/0000101.png",
+        "target": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/0000101.png",
+        "mask": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/0000101.png",
+        "object": "/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/0000101.png",
+        "text": "A large, green industrial machine with a curved top and a horizontal cylindrical component. The machine has a metallic finish with visible signs of wear and rust. The cylindrical part has a series of horizontal bars, and there are two large wheels attached to the side. The machine appears to be made of metal and has a robust, utilitarian design"
+    }
+]
