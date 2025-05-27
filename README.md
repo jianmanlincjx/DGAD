@@ -20,6 +20,24 @@ pip install -e .
 conda activate DGAD
 ```
 
+If you encounter issues with the conda environment setup, you can manually install the key dependencies:
+
+```bash
+# Create a new conda environment
+conda create -n DGAD python=3.8
+conda activate DGAD
+
+# Install PyTorch and related packages
+conda install pytorch==2.1.1 torchvision==0.16.1 torchaudio==2.1.1 pytorch-cuda=11.8 -c pytorch -c nvidia
+
+# Install other key dependencies
+pip install diffusers==0.21.4 transformers==4.35.2 accelerate==0.24.1
+pip install opencv-python scikit-image timm einops
+
+# Install the project
+pip install -e .
+```
+
 ## Pre-trained Models Download
 
 Please download the following pre-trained models from Hugging Face:
@@ -32,6 +50,12 @@ Please download the following pre-trained models from Hugging Face:
    - Model Name: `segmentation_mask_brushnet_ckpt`
    - Download Link: https://huggingface.co/camenduru/BrushNet/blob/main/segmentation_mask_brushnet_ckpt/diffusion_pytorch_model.safetensors
 
+3. Pre-trained Dense Cross Attention:
+   - Download Link: https://drive.google.com/file/d/1a4RYMa4_dT-ujxvVtXWByG2xYZUB9QWc/view?usp=sharing
+
+4. Pre-trained Cross-Attention Adapter:
+   - Download Link: https://drive.google.com/file/d/1sI3MsFGlzBIqxRd8XEuDmCZaxjsm_qjl/view?usp=drive_link
+
 After downloading, please place all models in the `pretrain_model` directory at the project root.
 
 ## Inference
@@ -41,6 +65,18 @@ Use the following command for inference:
 ```bash
 python inference/inference_base_sdinpaint_ipadapter.py
 ```
+
+### Sample Data
+We have provided some sample data in the `dataset_validation_demo` folder for quick testing:
+```
+dataset_validation_demo/
+├── source/     # Background images
+├── object/     # Object images to be inserted
+├── mask/       # Mask images indicating object placement
+└── target/     # Ground truth images (for reference)
+```
+
+You can directly run the inference code with these sample data.
 
 ### Input Requirements
 For inference, you need to provide:
