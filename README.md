@@ -16,6 +16,7 @@ This project uses conda for environment management. Please refer to `environment
 
 ```bash
 conda env create -f environment.yml
+pip install -e .
 conda activate DGAD
 ```
 
