@@ -88,13 +88,6 @@ For inference, you need to provide:
 2. Object image: The object to be inserted
 3. Position information: Either a mask or bounding box indicating where the object should be placed in the source image
 
-The input files should be organized as follows:
-```
-dataset_validation/
-├── source/     # Background images
-├── object/     # Object images to be inserted
-└── mask/       # Mask images indicating object placement
-```
 
 ## 🏋️‍♂️ Training
 
