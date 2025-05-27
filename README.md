@@ -1,14 +1,14 @@
 # DGAD
 
+This is the official open-source code for the DGAD project.
+
 ## Results
 
 ### Box Prompt Results
 ![Box Prompt Results](result_base_boxprompt.png)
-Results generated using bounding box prompts for object placement.
 
 ### Mask Prompt Results
 ![Mask Prompt Results](result_base_mask_prompt.png)
-Results generated using mask prompts for object placement.
 
 ## Environment Setup
 
@@ -78,6 +78,12 @@ The training data should be organized in JSON format. Please refer to `data_smal
     ]
 }
 ```
+
+After training is completed, extract the adapter weights using:
+```bash
+python tools/get_weight_brushadapter.py
+```
+Then you can proceed with inference using the extracted weights.
 
 ## Important Notes
 
