@@ -17,9 +17,9 @@ transform_image = transforms.Compose([
     transforms.ToTensor(),
 ])
 
-base_model_path = "pretrain_model/stable-diffusion-v1-5"
+base_model_path = "/data/JM/code/BrushNet-main/pretrain_model/models--runwayml--stable-diffusion-inpainting"
 brushnet_path = "pretrain_model/segmentation_mask_brushnet_ckpt"
-unet_path = '/data1/JM/code/BrushNet-main/exp/brushnet_adapter_small_bigobject/checkpoint-200000'
+unet_path = '/data/JM/code/BrushNet-main/exp/sd-inpaint_adapter_big/checkpoint-200000'
 
 brushnet = BrushNetModel.from_pretrained(brushnet_path, torch_dtype=torch.float16, is_inference=False).to('cuda')
 unet = UNet2DConditionModel.from_pretrained(unet_path, subfolder="unet", torch_dtype=torch.float16)
@@ -32,21 +32,22 @@ noise_scheduler = DDPMScheduler.from_pretrained(base_model_path, subfolder="sche
 pipe.scheduler = UniPCMultistepScheduler.from_config(pipe.scheduler.config)
 pipe.enable_model_cpu_offload()
 generator = torch.Generator("cuda").manual_seed(1234)
-image_name_list = sorted(os.listdir('/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed'))
-output_folder = '/data1/JM/code/BrushNet-main/datasets/MSRA-10K_result_brushnetadapter_200000_bigobject'
+image_name_list = sorted(os.listdir('/data/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed'))
+output_folder = '/data/JM/code/BrushNet-main/datasets/MSRA-10K_result_20'
 os.makedirs(output_folder, exist_ok=True)
 # 遍历图像名称列表
 for name in image_name_list[:100]:
     # 定义图像路径
-    source_image_path = f"/data1/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/{name}"
-    mask_image_path = f"/data1/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/{name}"
-    object_image_path = f"/data1/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/{name}"
-    txt_path = f"/data1/JM/code/BrushNet-main/datasets/MSRA-10K/text/{name.replace('.png', '.txt')}"
-    groundtruth_image_path = f"/data1/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/{name}"
+    source_image_path = f"/data/JM/code/BrushNet-main/datasets/MSRA-10K/source_processed/{name}"
+    mask_image_path = f"/data/JM/code/BrushNet-main/datasets/MSRA-10K/mask_processed/{name}"
+    object_image_path = f"/data/JM/code/BrushNet-main/datasets/MSRA-10K/object_processed/{name}"
+    txt_path = f"/data/JM/code/BrushNet-main/datasets/MSRA-10K/text_processed/{name.replace('.png', '.txt')}"
+    groundtruth_image_path = f"/data/JM/code/BrushNet-main/datasets/MSRA-10K/target_processed/{name}"
 
     # 读取描述文本
     with open(txt_path, "r") as f:
-        caption = f.read()
+        # caption = f.read()
+        caption = ' '
 
     # 读取并转换图像
     source_image = cv2.imread(source_image_path)[:,:,::-1]
@@ -64,10 +65,13 @@ for name in image_name_list[:100]:
 
     mask = 1.*(cv2.imread(mask_image_path).sum(-1)>255)[:,:,np.newaxis]
     background_mask = mask
-    object_mask = (1-mask)
+    # object_mask = (1-mask)
     background_mask = transform_image(Image.fromarray(background_mask.astype(np.uint8).repeat(3,-1)*255).convert("L"))
-    object_mask = transform_image(Image.fromarray(object_mask.astype(np.uint8).repeat(3,-1)*255).convert("L"))
+    # object_mask = transform_image(Image.fromarray(object_mask.astype(np.uint8).repeat(3,-1)*255).convert("L"))
 
+    object_mask = np.zeros((1, object_image.shape[1], object_image.shape[2]), dtype=np.float32)
+    object_mask = torch.tensor(object_mask)
+    
     # # 生成图像
     generated_image = pipe(
         caption, 
@@ -80,7 +84,6 @@ for name in image_name_list[:100]:
         brushnet_conditioning_scale=1.0,
         guide_scale=7.5
     ).images[0]
-    # generated_image.save(f"{output_folder}/{name}")
 
     # 读取图像
     source_image = Image.open(source_image_path).convert("RGB")

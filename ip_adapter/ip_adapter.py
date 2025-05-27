@@ -210,9 +210,11 @@ class IPAdapter:
         generator = get_generator(seed, self.device)
 
         images = self.pipe(
-            None,
-            brushnet_input[0],
-            brushnet_input[1],
+            None, 
+            brushnet_input[0], 
+            brushnet_input[1], 
+            brushnet_input[2], 
+            brushnet_input[3], 
             prompt_embeds=prompt_embeds,
             negative_prompt_embeds=negative_prompt_embeds,
             guidance_scale=guidance_scale,

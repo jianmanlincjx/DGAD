@@ -2,7 +2,7 @@ import torch
 import shutil
 import os
 # Define the file paths
-base_path = '/data1/JM/code/BrushNet-main/exp/brushnet_adapter_small_bigobject/checkpoint-200000'
+base_path = '/data/JM/code/BrushNet-main/exp/sd-inpaint_adapter_big_dense/checkpoint-1500000'
 input_model_path = f'{base_path}/pytorch_model.bin'
 # output_brushnet_path = f'{base_path}/brushnet/diffusion_pytorch_model.bin'
 # os.makedirs(f'{base_path}/brushnet', exist_ok=True)

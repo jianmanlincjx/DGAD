@@ -52,7 +52,6 @@ for name in image_name_list[:100]:
     init_image = Image.fromarray(init_image.astype(np.uint8))
     mask_image = Image.fromarray((mask_image.repeat(3, axis=-1) * 255).astype(np.uint8))
 
-
     generator = torch.manual_seed(7777)
 
     # Get original dimensions

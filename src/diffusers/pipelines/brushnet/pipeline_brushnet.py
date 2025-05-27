@@ -79,6 +79,20 @@ EXAMPLE_DOC_STRING = """
         ```
 """
 
+# Copied from diffusers.pipelines.stable_diffusion.pipeline_stable_diffusion_img2img.retrieve_latents
+def retrieve_latents(
+    encoder_output: torch.Tensor, generator: Optional[torch.Generator] = None, sample_mode: str = "sample"
+):
+    if hasattr(encoder_output, "latent_dist") and sample_mode == "sample":
+        return encoder_output.latent_dist.sample(generator)
+    elif hasattr(encoder_output, "latent_dist") and sample_mode == "argmax":
+        return encoder_output.latent_dist.mode()
+    elif hasattr(encoder_output, "latents"):
+        return encoder_output.latents
+    else:
+        raise AttributeError("Could not access latents of provided encoder_output")
+
+
 
 # Copied from diffusers.pipelines.stable_diffusion.pipeline_stable_diffusion.retrieve_timesteps
 def retrieve_timesteps(
@@ -1371,7 +1385,71 @@ class StableDiffusionBrushNetPipeline(
         )
         self.vae_scale_factor = 2 ** (len(self.vae.config.block_out_channels) - 1)
         self.image_processor = VaeImageProcessor(vae_scale_factor=self.vae_scale_factor, do_convert_rgb=True)
+        self.mask_processor = VaeImageProcessor(
+            vae_scale_factor=self.vae_scale_factor, do_normalize=False, do_binarize=True, do_convert_grayscale=True
+        )
         self.register_to_config(requires_safety_checker=requires_safety_checker)
+
+    def _encode_vae_image(self, image: torch.Tensor, generator: torch.Generator):
+        if isinstance(generator, list):
+            image_latents = [
+                retrieve_latents(self.vae.encode(image[i : i + 1]), generator=generator[i])
+                for i in range(image.shape[0])
+            ]
+            image_latents = torch.cat(image_latents, dim=0)
+        else:
+            image_latents = retrieve_latents(self.vae.encode(image), generator=generator)
+
+        image_latents = self.vae.config.scaling_factor * image_latents
+
+        return image_latents
+
+
+    def prepare_mask_latents(
+        self, mask, masked_image, batch_size, height, width, dtype, device, generator, do_classifier_free_guidance
+    ):
+        # resize the mask to latents shape as we concatenate the mask to the latents
+        # we do that before converting to dtype to avoid breaking in case we're using cpu_offload
+        # and half precision
+        mask = torch.nn.functional.interpolate(
+            mask, size=(height // self.vae_scale_factor, width // self.vae_scale_factor)
+        )
+        mask = mask.to(device=device, dtype=dtype)
+
+        masked_image = masked_image.to(device=device, dtype=dtype)
+
+        if masked_image.shape[1] == 4:
+            masked_image_latents = masked_image
+        else:
+            masked_image_latents = self._encode_vae_image(masked_image, generator=generator)
+
+        # duplicate mask and masked_image_latents for each generation per prompt, using mps friendly method
+        if mask.shape[0] < batch_size:
+            if not batch_size % mask.shape[0] == 0:
+                raise ValueError(
+                    "The passed mask and the required batch size don't match. Masks are supposed to be duplicated to"
+                    f" a total batch size of {batch_size}, but {mask.shape[0]} masks were passed. Make sure the number"
+                    " of masks that you pass is divisible by the total requested batch size."
+                )
+            mask = mask.repeat(batch_size // mask.shape[0], 1, 1, 1)
+        if masked_image_latents.shape[0] < batch_size:
+            if not batch_size % masked_image_latents.shape[0] == 0:
+                raise ValueError(
+                    "The passed images and the required batch size don't match. Images are supposed to be duplicated"
+                    f" to a total batch size of {batch_size}, but {masked_image_latents.shape[0]} images were passed."
+                    " Make sure the number of images that you pass is divisible by the total requested batch size."
+                )
+            masked_image_latents = masked_image_latents.repeat(batch_size // masked_image_latents.shape[0], 1, 1, 1)
+
+        mask = torch.cat([mask] * 2) if do_classifier_free_guidance else mask
+        masked_image_latents = (
+            torch.cat([masked_image_latents] * 2) if do_classifier_free_guidance else masked_image_latents
+        )
+
+        # aligning device to prevent device errors when concating it with the latent model input
+        masked_image_latents = masked_image_latents.to(device=device, dtype=dtype)
+        return mask, masked_image_latents
+
 
     # Copied from diffusers.pipelines.stable_diffusion.pipeline_stable_diffusion.StableDiffusionPipeline._encode_prompt
     def _encode_prompt(
@@ -1913,7 +1991,39 @@ class StableDiffusionBrushNetPipeline(
         return image
 
     # Copied from diffusers.pipelines.stable_diffusion.pipeline_stable_diffusion.StableDiffusionPipeline.prepare_latents
-    def prepare_latents(self, batch_size, num_channels_latents, height, width, dtype, device, generator, latents=None):
+    # def prepare_latents(self, batch_size, num_channels_latents, height, width, dtype, device, generator, latents=None):
+    #     shape = (batch_size, num_channels_latents, height // self.vae_scale_factor, width // self.vae_scale_factor)
+    #     if isinstance(generator, list) and len(generator) != batch_size:
+    #         raise ValueError(
+    #             f"You have passed a list of generators of length {len(generator)}, but requested an effective batch"
+    #             f" size of {batch_size}. Make sure the batch size matches the length of the generators."
+    #         )
+
+    #     if latents is None:
+    #         noise = randn_tensor(shape, generator=generator, device=device, dtype=dtype)
+    #     else:
+    #         noise = latents.to(device)
+
+    #     # scale the initial noise by the standard deviation required by the scheduler
+    #     latents = noise * self.scheduler.init_noise_sigma
+    #     return latents, noise
+
+    def prepare_latents(
+        self,
+        batch_size,
+        num_channels_latents,
+        height,
+        width,
+        dtype,
+        device,
+        generator,
+        latents=None,
+        image=None,
+        timestep=None,
+        is_strength_max=True,
+        return_noise=False,
+        return_image_latents=False,
+    ):
         shape = (batch_size, num_channels_latents, height // self.vae_scale_factor, width // self.vae_scale_factor)
         if isinstance(generator, list) and len(generator) != batch_size:
             raise ValueError(
@@ -1921,14 +2031,41 @@ class StableDiffusionBrushNetPipeline(
                 f" size of {batch_size}. Make sure the batch size matches the length of the generators."
             )
 
+        if (image is None or timestep is None) and not is_strength_max:
+            raise ValueError(
+                "Since strength < 1. initial latents are to be initialised as a combination of Image + Noise."
+                "However, either the image or the noise timestep has not been provided."
+            )
+
+        if return_image_latents or (latents is None and not is_strength_max):
+            image = image.to(device=device, dtype=dtype)
+
+            if image.shape[1] == 4:
+                image_latents = image
+            else:
+                image_latents = self._encode_vae_image(image=image, generator=generator)
+            image_latents = image_latents.repeat(batch_size // image_latents.shape[0], 1, 1, 1)
+
         if latents is None:
             noise = randn_tensor(shape, generator=generator, device=device, dtype=dtype)
+            # if strength is 1. then initialise the latents to noise, else initial to image + noise
+            latents = noise if is_strength_max else self.scheduler.add_noise(image_latents, noise, timestep)
+            # if pure noise then scale the initial latents by the  Scheduler's init sigma
+            latents = latents * self.scheduler.init_noise_sigma if is_strength_max else latents
         else:
             noise = latents.to(device)
+            latents = noise * self.scheduler.init_noise_sigma
 
-        # scale the initial noise by the standard deviation required by the scheduler
-        latents = noise * self.scheduler.init_noise_sigma
-        return latents, noise
+        outputs = (latents,)
+
+        if return_noise:
+            outputs += (noise,)
+
+        if return_image_latents:
+            outputs += (image_latents,)
+
+        return outputs
+
 
     # Copied from diffusers.pipelines.latent_consistency_models.pipeline_latent_consistency_text2img.LatentConsistencyModelPipeline.get_guidance_scale_embedding
     def get_guidance_scale_embedding(self, w, embedding_dim=512, dtype=torch.float32):
@@ -1991,8 +2128,8 @@ class StableDiffusionBrushNetPipeline(
         background_mask: PipelineImageInput = None,
         object_image: PipelineImageInput = None,
         object_mask: PipelineImageInput = None,
-        height: Optional[int] = None,
-        width: Optional[int] = None,
+        height: Optional[int] = 512,
+        width: Optional[int] = 512,
         num_inference_steps: int = 50,
         timesteps: List[int] = None,
         guidance_scale: float = 7.5,
@@ -2015,6 +2152,7 @@ class StableDiffusionBrushNetPipeline(
         clip_skip: Optional[int] = None,
         callback_on_step_end: Optional[Callable[[int, int, Dict], None]] = None,
         callback_on_step_end_tensor_inputs: List[str] = ["latents"],
+        strength: float = 1.0,
         **kwargs,
     ):
         r"""
@@ -2233,30 +2371,9 @@ class StableDiffusionBrushNetPipeline(
 
         # 4. Prepare image
         if isinstance(brushnet, BrushNetModel):
-            background_image = self.prepare_image(
-                image=background_image,
-                width=width,
-                height=height,
-                batch_size=batch_size * num_images_per_prompt,
-                num_images_per_prompt=num_images_per_prompt,
-                device=device,
-                dtype=brushnet.dtype,
-                do_classifier_free_guidance=self.do_classifier_free_guidance,
-                guess_mode=guess_mode,
-            )
+            width, height = 512, 512
             object_image = self.prepare_image(
                 image=object_image,
-                width=width,
-                height=height,
-                batch_size=batch_size * num_images_per_prompt,
-                num_images_per_prompt=num_images_per_prompt,
-                device=device,
-                dtype=brushnet.dtype,
-                do_classifier_free_guidance=self.do_classifier_free_guidance,
-                guess_mode=guess_mode,
-            )
-            background_mask = self.prepare_image(
-                image=background_mask,
                 width=width,
                 height=height,
                 batch_size=batch_size * num_images_per_prompt,
@@ -2277,7 +2394,6 @@ class StableDiffusionBrushNetPipeline(
                 do_classifier_free_guidance=self.do_classifier_free_guidance,
                 guess_mode=guess_mode,
             )
-            background_mask=(background_mask.sum(1)[:,None,:,:] < 0).to(background_image.dtype)
             object_mask=(object_mask.sum(1)[:,None,:,:] < 0).to(background_image.dtype)
             height, width = background_image.shape[-2:]
         else:
@@ -2286,10 +2402,14 @@ class StableDiffusionBrushNetPipeline(
         # 5. Prepare timesteps
         timesteps, num_inference_steps = retrieve_timesteps(self.scheduler, num_inference_steps, device, timesteps)
         self._num_timesteps = len(timesteps)
-
+        latent_timestep = timesteps[:1].repeat(batch_size * num_images_per_prompt)
+        is_strength_max = strength == 1.0
         # 6. Prepare latent variables
         num_channels_latents = 4
-        latents, noise = self.prepare_latents(
+        init_image = self.image_processor.preprocess(
+            background_image, height=height, width=width
+        )
+        latents_outputs = self.prepare_latents(
             batch_size * num_images_per_prompt,
             num_channels_latents,
             height,
@@ -2298,27 +2418,56 @@ class StableDiffusionBrushNetPipeline(
             device,
             generator,
             latents,
+            image=init_image,
+            timestep=latent_timestep,
+            is_strength_max=is_strength_max,
+            return_noise=True,
+            return_image_latents=None,
         )
 
+        latents, noise = latents_outputs
+
+        # 7. Prepare mask latent variables
+        mask_condition = self.mask_processor.preprocess(
+            background_mask, height=height, width=width
+        )
+
+        masked_image = init_image * (mask_condition < 0.5)
+
+        mask, masked_image_latents = self.prepare_mask_latents(
+            mask_condition,
+            masked_image,
+            batch_size * num_images_per_prompt,
+            height,
+            width,
+            prompt_embeds.dtype,
+            device,
+            generator,
+            self.do_classifier_free_guidance,
+        )
+        # num_channels_latents = 4
+        # latents, noise = self.prepare_latents(
+        #     batch_size * num_images_per_prompt,
+        #     num_channels_latents,
+        #     height,
+        #     width,
+        #     prompt_embeds.dtype,
+        #     device,
+        #     generator,
+        #     latents,
+        # )
+
         # 6.1 prepare condition latents
-        conditioning_latents_background=self.vae.encode(background_image).latent_dist.sample() * self.vae.config.scaling_factor
         conditioning_latents_object=self.vae.encode(object_image).latent_dist.sample() * self.vae.config.scaling_factor
-        background_mask = torch.nn.functional.interpolate(
-                    background_mask, 
-                    size=(
-                        conditioning_latents_background.shape[-2], 
-                        conditioning_latents_background.shape[-1]
-                    )
-                )
+
         object_mask = torch.nn.functional.interpolate(
                     object_mask, 
                     size=(
-                        conditioning_latents_background.shape[-2], 
-                        conditioning_latents_background.shape[-1]
+                        conditioning_latents_object.shape[-2], 
+                        conditioning_latents_object.shape[-1]
                     )
                 )
         conditioning_latents_brushnet = torch.concat([conditioning_latents_object,object_mask],1)
-        conditioning_latents_unet = torch.concat([conditioning_latents_background,background_mask],1)
 
 
         # 6.5 Optionally get Guidance Scale Embedding
@@ -2382,10 +2531,10 @@ class StableDiffusionBrushNetPipeline(
                     cond_scale = brushnet_cond_scale * brushnet_keep[i]
 
                 down_block_res_samples, mid_block_res_sample, up_block_res_samples = self.brushnet(
-                    control_model_input,
+                    control_model_input.to(device=device, dtype=brushnet.dtype),
                     t,
-                    encoder_hidden_states=brushnet_prompt_embeds,
-                    brushnet_cond=conditioning_latents_brushnet,
+                    encoder_hidden_states=brushnet_prompt_embeds.to(device=device, dtype=brushnet.dtype),
+                    brushnet_cond=conditioning_latents_brushnet.to(device=device, dtype=brushnet.dtype),
                     conditioning_scale=cond_scale,
                     guess_mode=guess_mode,
                     return_dict=False,
@@ -2401,7 +2550,7 @@ class StableDiffusionBrushNetPipeline(
                     up_block_res_samples = [torch.cat([torch.zeros_like(d), d]) for d in up_block_res_samples]
 
                 # predict the noise residual
-                latent_model_input = torch.cat([latent_model_input,conditioning_latents_unet],1)
+                latent_model_input = torch.cat([latent_model_input, mask, masked_image_latents], dim=1)
                 noise_pred = self.unet(
                     latent_model_input,
                     t,

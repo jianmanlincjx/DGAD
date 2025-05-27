@@ -113,7 +113,7 @@ def load_image(image_file, input_size=448, max_num=6):
     pixel_values = torch.stack(pixel_values)
     return pixel_values
 
-path = "/data1/JM/code/BrushNet-main/pretrain_model/models--OpenGVLab--Mini-InternVL-Chat-4B-V1-5"
+path = "/data/JM/code/BrushNet-main/pretrain_model/models--OpenGVLab--Mini-InternVL-Chat-4B-V1-5"
 model = AutoModel.from_pretrained(
     path,
     torch_dtype=torch.bfloat16,
@@ -128,8 +128,7 @@ generation_config = dict(
 
 
 
-vid_path = f'/data1/JM/code/BrushNet-main/家具/images'
-text_path = os.makedirs(vid_path.replace('images', 'text'), exist_ok=True)
+vid_path = f'/data/JM/code/BrushNet-main/validation_dataset/validation_input/object_cropped'
 img_list = sorted(os.listdir(vid_path))
 
 for img in tqdm(img_list):
@@ -137,7 +136,7 @@ for img in tqdm(img_list):
         # single-round single-image conversation
         question = "请生成这幅图像的英文prompt用于stablediffusion生成,注意颜色的修饰，要求简短一点，80词内，输出的prompt需要以<prompt>开始并以</prompt>结束"
         img_path = f'{vid_path}/{img}'
-        save_txt_path = img_path.replace('images', 'text').replace('.jpg', '.txt')
+        save_txt_path = img_path.replace('object_cropped', 'text').replace('.png', '.txt')
         pixel_values = load_image(img_path, max_num=6).to(torch.bfloat16).cuda()
         response = model.chat(tokenizer, pixel_values, question, generation_config)
         remove_prompt_tags_and_save_to_file(response, save_txt_path)

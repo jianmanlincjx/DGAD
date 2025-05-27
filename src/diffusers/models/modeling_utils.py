@@ -832,24 +832,6 @@ class ModelMixin(torch.nn.Module, PushToHubMixin):
                 # Instantiate model with empty weights
                 with accelerate.init_empty_weights():
                     model = cls.from_config(config, **unused_kwargs)
-                if is_inference:
-                    attn_procs = {}
-                    for name in model.attn_processors.keys():
-                        cross_attention_dim = None if name.endswith("attn1.processor") else model.config.cross_attention_dim
-                        if name.startswith("mid_block"):
-                            hidden_size = model.config.block_out_channels[-1]
-                        elif name.startswith("up_blocks"):
-                            block_id = int(name[len("up_blocks.")])
-                            hidden_size = list(reversed(model.config.block_out_channels))[block_id]
-                        elif name.startswith("down_blocks"):
-                            block_id = int(name[len("down_blocks.")])
-                            hidden_size = model.config.block_out_channels[block_id]
-                        if cross_attention_dim is None:
-                            attn_procs[name] = AttnProcessor()
-                        else:
-                            attn_procs[name] = IPAttnProcessor(hidden_size=hidden_size, cross_attention_dim=cross_attention_dim)
-                    model.set_attn_processor(attn_procs)
-
                 # if device_map is None, load the state dict and move the params from meta device to the cpu
                 if device_map is None:
                     param_device = "cpu"
@@ -857,7 +839,6 @@ class ModelMixin(torch.nn.Module, PushToHubMixin):
                     model._convert_deprecated_attention_blocks(state_dict)
                     # move the params from meta device to cpu
                     missing_keys = set(model.state_dict().keys()) - set(state_dict.keys())
-
                     if len(missing_keys) > 0:
                         raise ValueError(
                             f"Cannot load {cls} from {pretrained_model_name_or_path} because the following keys are"
