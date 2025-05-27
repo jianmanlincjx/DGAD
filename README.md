@@ -16,7 +16,7 @@ This project uses conda for environment management. Please refer to `environment
 
 ```bash
 conda env create -f environment.yml
-conda activate brushnet
+conda activate DGAD
 ```
 
 ## Pre-trained Models Download
