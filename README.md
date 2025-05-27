@@ -1,4 +1,14 @@
-# BrushNet
+# DGAD
+
+## Results
+
+### Box Prompt Results
+![Box Prompt Results](result_base_boxprompt.png)
+Results generated using bounding box prompts for object placement.
+
+### Mask Prompt Results
+![Mask Prompt Results](result_base_mask_prompt.png)
+Results generated using mask prompts for object placement.
 
 ## Environment Setup
 
@@ -15,19 +25,11 @@ Please download the following pre-trained models from Hugging Face:
 
 1. Stable Diffusion Inpainting Model:
    - Model Name: `models--runwayml--stable-diffusion-inpainting`
-   - Download Link: https://huggingface.co/runwayml/stable-diffusion-inpainting
+   - Download Link: https://github.com/faraday/runway-stable-diffusion-inpainting
 
 2. BrushNet Segmentation Model:
    - Model Name: `segmentation_mask_brushnet_ckpt`
-   - Download Link: https://huggingface.co/your-username/segmentation_mask_brushnet_ckpt
-
-3. Image Encoder:
-   - Model Path: `pretrain_model/image_encoder`
-   - Download Link: https://huggingface.co/your-username/image_encoder
-
-4. BERT Model:
-   - Model Name: `models--bert-base-uncased`
-   - Download Link: https://huggingface.co/bert-base-uncased
+   - Download Link: https://huggingface.co/camenduru/BrushNet/blob/main/segmentation_mask_brushnet_ckpt/diffusion_pytorch_model.safetensors
 
 After downloading, please place all models in the `pretrain_model` directory at the project root.
 
@@ -39,12 +41,42 @@ Use the following command for inference:
 python inference/inference_base_sdinpaint_ipadapter.py
 ```
 
+### Input Requirements
+For inference, you need to provide:
+1. Source image: The background image where the object will be placed
+2. Object image: The object to be inserted
+3. Position information: Either a mask or bounding box indicating where the object should be placed in the source image
+
+The input files should be organized as follows:
+```
+dataset_validation/
+├── source/     # Background images
+├── object/     # Object images to be inserted
+└── mask/       # Mask images indicating object placement
+```
+
 ## Training
 
 Use the following command for training:
 
 ```bash
 bash train.sh
+```
+
+### Data Format
+The training data should be organized in JSON format. Please refer to `data_small.json` for the data structure. The JSON file should contain:
+
+```json
+{
+    "images": [
+        {
+            "source": "path/to/source/image.jpg",
+            "mask": "path/to/mask/image.png",
+            "object": "path/to/object/image.jpg"
+        },
+        ...
+    ]
+}
 ```
 
 ## Important Notes
