@@ -34,8 +34,8 @@ noise_scheduler = DDPMScheduler.from_pretrained(base_model_path, subfolder="sche
 pipe.scheduler = UniPCMultistepScheduler.from_config(pipe.scheduler.config)
 pipe.enable_model_cpu_offload()
 generator = torch.Generator("cuda").manual_seed(1234)
-image_name_list = sorted(os.listdir('/data/JM/code/BrushNet-main/dataset_validation/object'))
-output_folder = '/data/JM/code/BrushNet-main/validation_dataset/DGAD__new_1500000'
+image_name_list = sorted(os.listdir('/data/JM/code/BrushNet-main/dataset_validation_demo/object'))
+output_folder = '/data/JM/code/BrushNet-main/validation_dataset/DGAD_demo'
 os.makedirs(output_folder, exist_ok=True)
 
 ip_model = IPAdapterPlus(pipe, image_encoder_path, ip_ckpt, device, num_tokens=16)
@@ -43,15 +43,9 @@ ip_model = IPAdapterPlus(pipe, image_encoder_path, ip_ckpt, device, num_tokens=1
 # 遍历图像名称列表
 for name in image_name_list:
     # 定义图像路径
-    source_image_path = f"/data/JM/code/BrushNet-main/dataset_validation/source/{name}"
-    mask_image_path = f"/data/JM/code/BrushNet-main/dataset_validation/mask/{name}"
-    # object_name = name.split('_p')[0] + '.png'
-    object_image_path = f"/data/JM/code/BrushNet-main/dataset_validation/object/{name}"
-    # txt_name = object_name.replace('.png', '.txt')
-    # txt_path = f"/data/JM/code/BrushNet-main/dataset_validation/text/{txt_name}"
-
-    # 读取描述文本
-    # with open(txt_path, "r") as f:
+    source_image_path = f"/data/JM/code/BrushNet-main/dataset_validation_demo/source/{name}"
+    mask_image_path = f"/data/JM/code/BrushNet-main/dataset_validation_demo/mask/{name}"
+    object_image_path = f"/data/JM/code/BrushNet-main/dataset_validation_demo/object/{name}"
     caption = ' '
 
     # 读取并转换图像
