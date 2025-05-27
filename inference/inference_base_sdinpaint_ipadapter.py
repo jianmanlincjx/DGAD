@@ -21,7 +21,7 @@ base_model_path = "/data/JM/code/BrushNet-main/pretrain_model/models--runwayml--
 brushnet_path = "pretrain_model/segmentation_mask_brushnet_ckpt"
 unet_path = '/data/JM/code/BrushNet-main/exp/sd-inpaint_adapter_big_dense/checkpoint-1500000'
 image_encoder_path = "/data/JM/code/BrushNet-main/pretrain_model/image_encoder"
-ip_ckpt = "/data/JM/code/BrushNet-main/pretrain_model/ip-adapter-plus_sd15.bin"
+ip_ckpt = "/data/JM/code/BrushNet-main/pretrain_model/cross_attention_ip_adapter.bin"
 device = 'cuda'
 
 brushnet = BrushNetModel.from_pretrained(brushnet_path, torch_dtype=torch.float16, is_inference=False).to('cuda')
