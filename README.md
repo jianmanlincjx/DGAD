@@ -47,16 +47,12 @@ pip install -e .
 Please download the following pre-trained models from Hugging Face:
 
 1. **[Stable Diffusion Inpainting Model](https://huggingface.co/stable-diffusion-v1-5/stable-diffusion-inpainting)**  
-   - Model folder name: `models--runwayml--stable-diffusion-inpainting`
 
 2. **[BrushNet Segmentation Model](https://huggingface.co/camenduru/BrushNet/blob/main/segmentation_mask_brushnet_ckpt/diffusion_pytorch_model.safetensors)**  
-   - Model file path: `segmentation_mask_brushnet_ckpt/diffusion_pytorch_model.safetensors`
 
 3. **[Pre-trained Dense Cross Attention](https://drive.google.com/drive/folders/1bdYoh8u5MAHQTrV2qL7bRRq3i1fh0_MA?usp=drive_link)**  
-   - Folder name: `Dense Cross Attention`
 
 4. **[Pre-trained Cross-Attention Adapter](https://drive.google.com/file/d/1sI3MsFGlzBIqxRd8XEuDmCZaxjsm_qjl/view?usp=drive_link)**  
-   - File name: `Cross-Attention Adapter`
 
 After downloading, please place all models in the `pretrain_model` directory at the project root.
 
