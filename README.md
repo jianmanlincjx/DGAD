@@ -48,7 +48,7 @@ Please download the following pre-trained models from Hugging Face:
 
 1. Stable Diffusion Inpainting Model:
    - Model Name: `models--runwayml--stable-diffusion-inpainting`
-   - Download Link: https://github.com/faraday/runway-stable-diffusion-inpainting
+   - Download Link: https://huggingface.co/stable-diffusion-v1-5/stable-diffusion-inpainting
 
 2. BrushNet Segmentation Model:
    - Model Name: `segmentation_mask_brushnet_ckpt`
