@@ -82,7 +82,6 @@ Use the following command for training:
 bash train.sh
 ```
 
-#### Data Format
 The training data should be organized in JSON format. Please refer to `data_small.json` for the data structure. The JSON file should contain:
 
 ```json
