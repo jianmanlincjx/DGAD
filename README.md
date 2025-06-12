@@ -54,7 +54,7 @@ Please download the following pre-trained models from Hugging Face:
 
 4. **[Pre-trained Cross-Attention Adapter](https://drive.google.com/file/d/1sI3MsFGlzBIqxRd8XEuDmCZaxjsm_qjl/view?usp=drive_link)**  
 
-After downloading, please place all models in the `pretrain_model` directory at the project root.
+After downloading, please place all models in the `pretrain_model` directory at the project root. From the Pre-trained Dense Cross Attention link, you will obtain a folder named "Unet", which contains the full backbone weights, including the custom dense cross-attention adapter. To use it, manually create a folder named "checkpoint-1500000", place the "Unet" folder inside it, and update the corresponding path in the "inference.py" script to point to this "checkpoint-1500000" directory. Once set, you can run the model with the integrated dense cross-attention backbone.
 
 ## 🧪 Inference
 
