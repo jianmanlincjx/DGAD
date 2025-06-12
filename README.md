@@ -108,3 +108,4 @@ Then you can proceed with inference using the extracted weights.
 - Training can be performed on a GPU with 24GB VRAM (e.g., RTX 3090, RTX 4090)
 - For inference, a GPU with 12GB VRAM is sufficient
 - CUDA 11.7 or higher is recommended
+If you encounter any difficulties reproducing the results, please contact linjianmancjx@gmail.com, and I will respond as soon as possible.
